@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Sable &amp; Brass Interiors</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #FAF7F2;
+      --warm-white: #F5F0E8;
+      --sand: #E8E0D8;
+      --taupe: #C4B5A5;
+      --sable: #8A7968;
+      --charcoal: #3D3830;
+      --brass: #B8956A;
+      --brass-light: #D4B88C;
+      --dark: #2A2520;
+      --success: #6A9B6A;
+      --error: #C46B5E;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      min-height: 100vh;
+    }
+
+    /* Login screen */
+    .login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--dark), var(--charcoal));
+    }
+
+    .login-box {
+      background: var(--cream);
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .login-box h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    .login-box p {
+      color: var(--sable);
+      font-size: 0.85rem;
+      margin-bottom: 32px;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 14px 18px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.95rem;
+      border: 1px solid var(--sand);
+      background: var(--warm-white);
+      outline: none;
+      margin-bottom: 16px;
+    }
+
+    .login-box input:focus { border-color: var(--brass); }
+
+    .login-box button {
+      width: 100%;
+      padding: 14px;
+      background: var(--brass);
+      color: var(--cream);
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .login-box button:hover { background: var(--brass-light); color: var(--dark); }
+
+    .login-error {
+      color: var(--error);
+      font-size: 0.85rem;
+      margin-top: 12px;
+      display: none;
+    }
+
+    /* Admin panel */
+    .admin-panel { display: none; }
+
+    .admin-header {
+      background: var(--dark);
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .admin-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 1.3rem;
+      color: var(--cream);
+    }
+
+    .admin-header button {
+      background: none;
+      border: 1px solid var(--sable);
+      color: var(--taupe);
+      padding: 8px 20px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .admin-header button:hover {
+      border-color: var(--brass);
+      color: var(--brass-light);
+    }
+
+    .admin-body {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    .admin-section {
+      margin-bottom: 48px;
+    }
+
+    .admin-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    .admin-section > p {
+      color: var(--sable);
+      font-size: 0.85rem;
+      margin-bottom: 24px;
+    }
+
+    /* Photo cards */
+    .photo-card {
+      background: var(--warm-white);
+      border: 1px solid var(--sand);
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+
+    .photo-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 1.15rem;
+      margin-bottom: 4px;
+    }
+
+    .photo-card .photo-meta {
+      font-size: 0.8rem;
+      color: var(--sable);
+      margin-bottom: 16px;
+    }
+
+    .photo-card label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--sable);
+      margin-bottom: 6px;
+    }
+
+    .photo-card input[type="text"] {
+      width: 100%;
+      padding: 12px 16px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.9rem;
+      border: 1px solid var(--sand);
+      background: var(--cream);
+      outline: none;
+      margin-bottom: 12px;
+    }
+
+    .photo-card input[type="text"]:focus { border-color: var(--brass); }
+
+    .photo-preview {
+      margin-top: 8px;
+      margin-bottom: 16px;
+      background: var(--sand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      min-height: 120px;
+    }
+
+    .photo-preview img {
+      max-width: 100%;
+      max-height: 300px;
+      object-fit: contain;
+    }
+
+    .photo-preview .no-image {
+      color: var(--sable);
+      font-size: 0.85rem;
+      padding: 40px;
+    }
+
+    /* Qwen prompt */
+    .qwen-prompt {
+      margin-top: 12px;
+    }
+
+    .qwen-toggle {
+      background: none;
+      border: none;
+      color: var(--brass);
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      cursor: pointer;
+      padding: 4px 0;
+    }
+
+    .qwen-toggle:hover { color: var(--brass-light); }
+
+    .qwen-text {
+      display: none;
+      margin-top: 8px;
+      padding: 16px;
+      background: var(--charcoal);
+      color: var(--sand);
+      font-size: 0.82rem;
+      line-height: 1.6;
+      position: relative;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .qwen-text.show { display: block; }
+
+    .copy-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: var(--brass);
+      color: var(--cream);
+      border: none;
+      padding: 4px 12px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .copy-btn:hover { background: var(--brass-light); color: var(--dark); }
+
+    /* Contact fields */
+    .contact-fields {
+      background: var(--warm-white);
+      border: 1px solid var(--sand);
+      padding: 28px;
+    }
+
+    .contact-fields label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--sable);
+      margin-bottom: 6px;
+      margin-top: 16px;
+    }
+
+    .contact-fields label:first-child { margin-top: 0; }
+
+    .contact-fields input {
+      width: 100%;
+      padding: 12px 16px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.9rem;
+      border: 1px solid var(--sand);
+      background: var(--cream);
+      outline: none;
+    }
+
+    .contact-fields input:focus { border-color: var(--brass); }
+
+    /* Save button */
+    .save-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--dark);
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 100;
+    }
+
+    .save-bar .status {
+      color: var(--taupe);
+      font-size: 0.85rem;
+    }
+
+    .save-bar .status.success { color: var(--success); }
+    .save-bar .status.error { color: var(--error); }
+
+    .save-btn {
+      background: var(--brass);
+      color: var(--cream);
+      border: none;
+      padding: 14px 36px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .save-btn:hover { background: var(--brass-light); color: var(--dark); }
+    .save-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    @media (max-width: 600px) {
+      .admin-body { padding: 24px 16px 80px; }
+      .photo-card, .contact-fields { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login Screen -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-box">
+      <h1>Sable &amp; Brass</h1>
+      <p>Admin Panel</p>
+      <input type="password" id="passwordInput" placeholder="Enter password">
+      <button onclick="doLogin()">Sign In</button>
+      <p class="login-error" id="loginError">Invalid password. Please try again.</p>
+    </div>
+  </div>
+
+  <!-- Admin Panel -->
+  <div class="admin-panel" id="adminPanel">
+    <div class="admin-header">
+      <h1>Sable &amp; Brass — Admin</h1>
+      <button onclick="doLogout()">Sign Out</button>
+    </div>
+
+    <div class="admin-body">
+
+      <!-- Photos Section -->
+      <div class="admin-section">
+        <h2>Site Photos</h2>
+        <p>Enter image URLs for each photo slot. Use the Qwen prompts to generate AI images with your LoRA model.</p>
+
+        <!-- Photo 1: Headshot -->
+        <div class="photo-card">
+          <h3>1. Headshot</h3>
+          <p class="photo-meta">Profile photo &mdash; 768 &times; 1024 px &mdash; 3:4 portrait</p>
+          <label for="photo-headshot">Image URL</label>
+          <input type="text" id="photo-headshot" data-section="headshot" placeholder="https://example.com/headshot.jpg">
+          <div class="photo-preview" id="preview-headshot"><span class="no-image">No image set</span></div>
+          <div class="qwen-prompt">
+            <button class="qwen-toggle" onclick="toggleQwen(this)">Show Qwen Prompt</button>
+            <div class="qwen-text">yohanna_mueller, professional headshot portrait, warm studio lighting, wearing cream silk blouse, soft smile, 85mm lens, shallow depth of field, neutral warm-toned backdrop, editorial beauty photography, high resolution, sharp focus on eyes<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+          </div>
+        </div>
+
+        <!-- Photo 2: Meet the Designer -->
+        <div class="photo-card">
+          <h3>2. Meet the Designer</h3>
+          <p class="photo-meta">Intro section &mdash; 768 &times; 1024 px &mdash; 3:4 portrait</p>
+          <label for="photo-intro">Image URL</label>
+          <input type="text" id="photo-intro" data-section="photo-intro" placeholder="https://example.com/intro.jpg">
+          <div class="photo-preview" id="preview-photo-intro"><span class="no-image">No image set</span></div>
+          <div class="qwen-prompt">
+            <button class="qwen-toggle" onclick="toggleQwen(this)">Show Qwen Prompt</button>
+            <div class="qwen-text">yohanna_mueller, three-quarter length portrait, standing in coastal modern living room, wearing elegant black dress, one hand resting on linen sofa, natural window light from the left, white oak floors, soft earth-toned decor in background, editorial interior design photography, 50mm lens, warm color grading<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+          </div>
+        </div>
+
+        <!-- Photo 3: Lifestyle Banner -->
+        <div class="photo-card">
+          <h3>3. Lifestyle Banner</h3>
+          <p class="photo-meta">Before services section &mdash; 1216 &times; 832 px &mdash; 3:2 landscape</p>
+          <label for="photo-lifestyle">Image URL</label>
+          <input type="text" id="photo-lifestyle" data-section="photo-lifestyle" placeholder="https://example.com/lifestyle.jpg">
+          <div class="photo-preview" id="preview-photo-lifestyle"><span class="no-image">No image set</span></div>
+          <div class="qwen-prompt">
+            <button class="qwen-toggle" onclick="toggleQwen(this)">Show Qwen Prompt</button>
+            <div class="qwen-text">yohanna_mueller, examining fabric swatches at large design table, wearing cream cashmere sweater, surrounded by material samples and mood boards, bright airy studio with floor-to-ceiling windows, wide angle 35mm lens, natural daylight, editorial lifestyle photography, warm earth tones, professional interior designer at work<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+          </div>
+        </div>
+
+        <!-- Photo 4: Editorial Portrait -->
+        <div class="photo-card">
+          <h3>4. Editorial Portrait</h3>
+          <p class="photo-meta">Philosophy section &mdash; 768 &times; 1024 px &mdash; 3:4 portrait</p>
+          <label for="photo-editorial">Image URL</label>
+          <input type="text" id="photo-editorial" data-section="photo-editorial" placeholder="https://example.com/editorial.jpg">
+          <div class="photo-preview" id="preview-photo-editorial"><span class="no-image">No image set</span></div>
+          <div class="qwen-prompt">
+            <button class="qwen-toggle" onclick="toggleQwen(this)">Show Qwen Prompt</button>
+            <div class="qwen-text">yohanna_mueller, dramatic chiaroscuro portrait, wearing dark tailored blazer, standing by tall window with sheer curtains, moody directional light, cinematic atmosphere, deep shadows and warm highlights, 85mm lens, fine art portrait photography, thoughtful contemplative expression, dark background<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+          </div>
+        </div>
+
+        <!-- Photo 5: Signature Banner -->
+        <div class="photo-card">
+          <h3>5. Signature Banner</h3>
+          <p class="photo-meta">Before testimonials &mdash; 1216 &times; 832 px &mdash; 3:2 landscape</p>
+          <label for="photo-signature">Image URL</label>
+          <input type="text" id="photo-signature" data-section="photo-signature" placeholder="https://example.com/signature.jpg">
+          <div class="photo-preview" id="preview-photo-signature"><span class="no-image">No image set</span></div>
+          <div class="qwen-prompt">
+            <button class="qwen-toggle" onclick="toggleQwen(this)">Show Qwen Prompt</button>
+            <div class="qwen-text">yohanna_mueller, environmental portrait in ocean-view coastal room, wearing white linen outfit, standing near open French doors with ocean visible, soft natural light flooding the space, airy minimalist interior with natural materials, wide shot 24mm lens, editorial architecture photography, serene and elegant atmosphere<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Section -->
+      <div class="admin-section">
+        <h2>Contact Information</h2>
+        <p>Update the contact details shown on the website.</p>
+        <div class="contact-fields">
+          <label for="contact-email">Email Address</label>
+          <input type="text" id="contact-email" data-section="contact-email" placeholder="hello@sableandbrassinteriors.com">
+          <label for="contact-phone">Phone Number</label>
+          <input type="text" id="contact-phone" data-section="contact-phone" placeholder="(123) 456-7890">
+          <label for="contact-location">Location</label>
+          <input type="text" id="contact-location" data-section="contact-location" placeholder="Coastal California">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Save Bar -->
+    <div class="save-bar">
+      <span class="status" id="saveStatus">Ready</span>
+      <button class="save-btn" id="saveBtn" onclick="saveAll()">Save All Changes</button>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = '/api/cms';
+    let authToken = '';
+
+    // --- Login ---
+    function doLogin() {
+      const pw = document.getElementById('passwordInput').value;
+      if (!pw.trim()) return;
+      authToken = pw;
+      // Verify by trying to load data
+      fetch(API_URL, {
+        headers: { 'Authorization': 'Bearer ' + authToken }
+      })
+      .then(r => {
+        if (r.ok) {
+          document.getElementById('loginScreen').style.display = 'none';
+          document.getElementById('adminPanel').style.display = 'block';
+          loadData();
+        } else {
+          document.getElementById('loginError').style.display = 'block';
+        }
+      })
+      .catch(() => {
+        // If API not available (local dev), allow login anyway
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('adminPanel').style.display = 'block';
+      });
+    }
+
+    function doLogout() {
+      authToken = '';
+      document.getElementById('adminPanel').style.display = 'none';
+      document.getElementById('loginScreen').style.display = 'flex';
+      document.getElementById('passwordInput').value = '';
+      document.getElementById('loginError').style.display = 'none';
+    }
+
+    // Enter key on password field
+    document.getElementById('passwordInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') doLogin();
+    });
+
+    // --- Load data from CMS ---
+    function loadData() {
+      fetch(API_URL, {
+        headers: { 'Authorization': 'Bearer ' + authToken }
+      })
+      .then(r => r.ok ? r.json() : {})
+      .then(data => {
+        if (!data) return;
+        // Fill in all fields
+        document.querySelectorAll('[data-section]').forEach(input => {
+          const key = input.getAttribute('data-section');
+          if (data[key]) {
+            input.value = data[key];
+            updatePreview(key, data[key]);
+          }
+        });
+      })
+      .catch(() => {});
+    }
+
+    // --- Preview updates ---
+    function updatePreview(section, url) {
+      const previewEl = document.getElementById('preview-' + section);
+      if (!previewEl) return;
+      if (url && url.trim()) {
+        previewEl.innerHTML = '<img src="' + url + '" alt="Preview" onerror="this.parentElement.innerHTML=\'<span class=no-image>Failed to load image</span>\'">';
+      } else {
+        previewEl.innerHTML = '<span class="no-image">No image set</span>';
+      }
+    }
+
+    // Live preview on input
+    document.querySelectorAll('.photo-card input[type="text"]').forEach(input => {
+      input.addEventListener('input', () => {
+        const section = input.getAttribute('data-section');
+        updatePreview(section, input.value);
+      });
+    });
+
+    // --- Save all ---
+    function saveAll() {
+      const btn = document.getElementById('saveBtn');
+      const status = document.getElementById('saveStatus');
+      btn.disabled = true;
+      status.textContent = 'Saving...';
+      status.className = 'status';
+
+      const payload = {};
+      document.querySelectorAll('[data-section]').forEach(input => {
+        const key = input.getAttribute('data-section');
+        if (input.value.trim()) {
+          payload[key] = input.value.trim();
+        }
+      });
+
+      fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + authToken
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(r => {
+        if (r.ok) {
+          status.textContent = 'Saved successfully!';
+          status.className = 'status success';
+        } else {
+          throw new Error('Save failed');
+        }
+      })
+      .catch(() => {
+        status.textContent = 'Error saving. Check your connection.';
+        status.className = 'status error';
+      })
+      .finally(() => {
+        btn.disabled = false;
+        setTimeout(() => {
+          status.textContent = 'Ready';
+          status.className = 'status';
+        }, 3000);
+      });
+    }
+
+    // --- Qwen prompt helpers ---
+    function toggleQwen(btn) {
+      const text = btn.nextElementSibling;
+      text.classList.toggle('show');
+      btn.textContent = text.classList.contains('show') ? 'Hide Qwen Prompt' : 'Show Qwen Prompt';
+    }
+
+    function copyPrompt(btn) {
+      const text = btn.parentElement.textContent.replace('Copy', '').trim();
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = 'Copy'; }, 1500);
+      });
+    }
+  </script>
+</body>
+</html>

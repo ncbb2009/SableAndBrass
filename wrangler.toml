@@ -1,0 +1,13 @@
+# Sable & Brass — Cloudflare Pages deployment
+# Migrated from static-asset Worker to Pages for Functions + KV support
+
+name = "sable-and-brass"
+compatibility_date = "2024-09-23"
+pages_build_output_dir = "."
+
+# KV namespace binding — create the namespace first, then paste the ID below
+# Run: npx wrangler kv namespace create CMS_DATA
+# Then replace YOUR_KV_NAMESPACE_ID_HERE with the id from the output
+[[kv_namespaces]]
+binding = "CMS_DATA"
+id = "YOUR_KV_NAMESPACE_ID_HERE"
