@@ -1,7 +1,7 @@
 # Sable & Brass — Cloudflare Pages deployment
 # Migrated from static-asset Worker to Pages for Functions + KV support
 
-name = "sable-and-brass"
+name = "sableandbrassinteriors"
 compatibility_date = "2024-09-23"
 pages_build_output_dir = "."
 
