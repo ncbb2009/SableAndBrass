@@ -99,8 +99,30 @@
     }
     .logout-btn:hover { color: var(--cream); border-color: var(--stone); }
 
+    /* ── Sidebar Nav ───────────────────────────────────────────── */
+    .app-body { display: flex; min-height: calc(100vh - 60px); }
+    .sidebar {
+      width: 220px; background: var(--sable-2);
+      border-right: 1px solid #2e2b26;
+      padding: 24px 0; flex-shrink: 0;
+      position: sticky; top: 60px; height: calc(100vh - 60px);
+      overflow-y: auto;
+    }
+    .sidebar-label {
+      font-size: 9px; letter-spacing: .3em; text-transform: uppercase;
+      color: var(--stone); padding: 12px 24px 8px; display: block;
+    }
+    .sidebar a {
+      display: block; padding: 10px 24px;
+      font-size: 13px; color: var(--cream); text-decoration: none;
+      letter-spacing: .04em; transition: background .2s, color .2s;
+      border-left: 2px solid transparent;
+    }
+    .sidebar a:hover { background: rgba(201,169,110,.08); color: var(--brass); }
+    .sidebar a.active { border-left-color: var(--brass); color: var(--brass); background: rgba(201,169,110,.06); }
+
     /* ── Content ────────────────────────────────────────────────── */
-    .content { max-width: 900px; margin: 0 auto; padding: 48px 32px 80px; }
+    .content { flex: 1; max-width: 900px; padding: 48px 48px 120px; }
     .section-label {
       font-size: 10px; letter-spacing: .3em; text-transform: uppercase;
       color: var(--brass); margin-bottom: 8px;
@@ -112,6 +134,23 @@
     }
     .section-desc { font-size: 13px; color: var(--stone); margin-bottom: 36px; line-height: 1.6; }
     .divider { height: 1px; background: #d5cfc5; margin: 48px 0; }
+
+    /* ── Fields ─────────────────────────────────────────────────── */
+    .field { margin-bottom: 16px; }
+    .field label {
+      display: block; font-size: 10px; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--stone); margin-bottom: 6px;
+    }
+    .field input, .field textarea, .field select {
+      width: 100%; padding: 11px 14px;
+      background: #fff; border: 1px solid #d8d3c9;
+      color: var(--text); font-size: 14px; font-family: inherit;
+      outline: none; transition: border-color .2s; resize: vertical;
+    }
+    .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--brass); }
+    .field textarea { min-height: 80px; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .field-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
 
     /* ── Photo Card ─────────────────────────────────────────────── */
     .photo-card {
@@ -134,17 +173,6 @@
     .photo-preview.landscape { aspect-ratio: 16/9; }
     .photo-preview.square { aspect-ratio: 1/1; }
     .photo-meta { display: flex; flex-direction: column; gap: 12px; }
-    .field label {
-      display: block; font-size: 10px; letter-spacing: .2em;
-      text-transform: uppercase; color: var(--stone); margin-bottom: 6px;
-    }
-    .field input, .field textarea {
-      width: 100%; padding: 11px 14px;
-      background: #fff; border: 1px solid #d8d3c9;
-      color: var(--text); font-size: 14px; font-family: inherit;
-      outline: none; transition: border-color .2s; resize: vertical;
-    }
-    .field input:focus, .field textarea:focus { border-color: var(--brass); }
     .dim-badge {
       display: inline-block;
       background: var(--sable); color: var(--brass);
@@ -172,15 +200,50 @@
     }
     .copy-btn:hover { background: var(--brass-lt); }
 
-    /* ── Contact Fields ─────────────────────────────────────────── */
-    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    /* ── Pricing Card ──────────────────────────────────────────── */
+    .pricing-section {
+      background: #fff; border: 1px solid #d8d3c9;
+      margin-bottom: 24px; overflow: hidden;
+    }
+    .pricing-section-header {
+      background: var(--sable-3); padding: 14px 20px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .pricing-section-name { font-size: 12px; color: var(--cream); letter-spacing: .14em; text-transform: uppercase; }
+    .pricing-section-body { padding: 24px; }
+
+    /* ── Testimonial Card ──────────────────────────────────────── */
+    .testi-edit-card {
+      background: #fff; border: 1px solid #d8d3c9;
+      margin-bottom: 16px; overflow: hidden;
+    }
+    .testi-edit-header {
+      background: var(--sable-3); padding: 12px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .testi-edit-label { font-size: 11px; color: var(--cream); letter-spacing: .12em; text-transform: uppercase; }
+    .testi-edit-body { padding: 20px; }
+    .testi-remove-btn {
+      background: none; border: 1px solid #5a3030; color: #c06060;
+      font-size: 9px; letter-spacing: .12em; text-transform: uppercase;
+      padding: 5px 12px; cursor: pointer; transition: all .2s;
+    }
+    .testi-remove-btn:hover { background: #5a3030; color: #fff; }
+    .add-testi-btn {
+      display: inline-block; padding: 12px 28px;
+      background: var(--sable-3); color: var(--brass); border: 1px solid #3a3730;
+      font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+      cursor: pointer; transition: all .2s; margin-top: 8px;
+    }
+    .add-testi-btn:hover { background: var(--sable); border-color: var(--brass); }
 
     /* ── Save Button ────────────────────────────────────────────── */
     .save-bar {
-      position: sticky; bottom: 0;
+      position: fixed; bottom: 0; left: 220px; right: 0;
       background: var(--sable); border-top: 1px solid #2e2b26;
       padding: 16px 32px;
       display: flex; align-items: center; justify-content: space-between;
+      z-index: 50;
     }
     .save-btn {
       padding: 14px 48px;
@@ -205,12 +268,17 @@
     #toast.ok  { background: #f0f8f3; color: #1a5c35; border-color: #3a9e60; }
     #toast.err { background: #fdf0f0; color: #7a1a1a; border-color: #c0392b; }
 
+    /* ── Section target ────────────────────────────────────────── */
+    .admin-section { scroll-margin-top: 80px; }
+
     /* ── Responsive ─────────────────────────────────────────────── */
-    @media (max-width: 680px) {
-      .content { padding: 28px 16px 80px; }
+    @media (max-width: 800px) {
+      .sidebar { display: none; }
+      .save-bar { left: 0; }
+      .content { padding: 28px 16px 120px; }
       .photo-row { grid-template-columns: 1fr; }
       .photo-preview { max-width: 200px; }
-      .field-row { grid-template-columns: 1fr; }
+      .field-row, .field-row-3 { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -239,176 +307,380 @@
     </div>
   </header>
 
-  <div class="content">
+  <div class="app-body">
+    <nav class="sidebar">
+      <span class="sidebar-label">Content</span>
+      <a href="#sec-bio" class="active" onclick="activateNav(this)">Bio &amp; Profile</a>
+      <a href="#sec-photos" onclick="activateNav(this)">Photos</a>
+      <a href="#sec-testimonials" onclick="activateNav(this)">Testimonials</a>
+      <span class="sidebar-label">Pricing</span>
+      <a href="#sec-consulting" onclick="activateNav(this)">Consulting</a>
+      <a href="#sec-staging" onclick="activateNav(this)">Staging</a>
+      <a href="#sec-rental" onclick="activateNav(this)">Rental Makeovers</a>
+      <a href="#sec-design" onclick="activateNav(this)">Interior Design</a>
+      <span class="sidebar-label">Settings</span>
+      <a href="#sec-contact" onclick="activateNav(this)">Contact Info</a>
+    </nav>
 
-    <!-- ── PHOTOS ─────────────────────────────────────────────── -->
-    <div class="section-label">Photos</div>
-    <h2 class="section-heading">Photos &amp; Headshot</h2>
-    <p class="section-desc">Paste image URLs below. Each slot shows the recommended dimensions and a ready-to-use Qwen prompt. Generate with your LoRA, host the image, and paste the URL.</p>
+    <div class="content">
 
-    <!-- Photo 1: Headshot -->
-    <div class="photo-card">
-      <div class="photo-card-header">
-        <span class="photo-card-num">01</span>
-        <span class="photo-card-name">Headshot &mdash; Profile Section</span>
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <!-- BIO & PROFILE                                            -->
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <div id="sec-bio" class="admin-section">
+        <div class="section-label">Profile</div>
+        <h2 class="section-heading">Bio &amp; Profile</h2>
+        <p class="section-desc">Edit the designer's name and biography paragraphs displayed in the "Meet the Designer" profile section on the homepage.</p>
+
+        <div class="field-row">
+          <div class="field">
+            <label>First Name</label>
+            <input id="bio-firstName" type="text" placeholder="Yohanna">
+          </div>
+          <div class="field">
+            <label>Last Name</label>
+            <input id="bio-lastName" type="text" placeholder="Mueller">
+          </div>
+        </div>
+        <div class="field">
+          <label>Bio Paragraph 1</label>
+          <textarea id="bio-p1" rows="4" placeholder="Born in Munich..."></textarea>
+        </div>
+        <div class="field">
+          <label>Bio Paragraph 2</label>
+          <textarea id="bio-p2" rows="4" placeholder="Her signature aesthetic..."></textarea>
+        </div>
+        <div class="field">
+          <label>Bio Paragraph 3</label>
+          <textarea id="bio-p3" rows="4" placeholder="Her creative lineage..."></textarea>
+        </div>
       </div>
-      <div class="photo-card-body">
-        <div class="photo-row">
-          <img class="photo-preview" id="prev-headshot" src="" alt="Headshot preview">
-          <div class="photo-meta">
-            <span class="dim-badge">768 &times; 1024 px &nbsp;(3:4 portrait)</span>
-            <p class="photo-desc">Professional headshot used in the "Meet the Designer" profile section. Warm studio lighting, neutral background, shoulders-up framing.</p>
-            <div class="field">
-              <label>Image URL</label>
-              <input id="photo-headshot" type="url" placeholder="https://..." oninput="previewImg('headshot',this.value)">
+
+      <div class="divider"></div>
+
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <!-- PHOTOS                                                    -->
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <div id="sec-photos" class="admin-section">
+        <div class="section-label">Photos</div>
+        <h2 class="section-heading">Photos &amp; Headshot</h2>
+        <p class="section-desc">Paste image URLs below. Each slot shows the recommended dimensions and a ready-to-use Qwen prompt.</p>
+
+        <!-- Photo 1: Headshot -->
+        <div class="photo-card">
+          <div class="photo-card-header">
+            <span class="photo-card-num">01</span>
+            <span class="photo-card-name">Headshot &mdash; Profile Section</span>
+          </div>
+          <div class="photo-card-body">
+            <div class="photo-row">
+              <img class="photo-preview" id="prev-headshot" src="" alt="Headshot preview">
+              <div class="photo-meta">
+                <span class="dim-badge">768 &times; 1024 px &nbsp;(3:4 portrait)</span>
+                <p class="photo-desc">Professional headshot used in the "Meet the Designer" profile section.</p>
+                <div class="field">
+                  <label>Image URL</label>
+                  <input id="photo-headshot" type="url" placeholder="https://..." oninput="previewImg('headshot',this.value)">
+                </div>
+                <div class="field">
+                  <label>Qwen Prompt</label>
+                  <div class="prompt-wrap">
+                    <textarea class="prompt-box" readonly>photo of yohanna_mueller, professional headshot portrait, elegant woman, warm smile, wearing cream silk blouse, soft golden hour studio lighting, shallow depth of field, neutral warm-toned background, shoulders and face framing, luxury editorial photography, shot on Canon EOS R5, 85mm f/1.4 lens, 8k quality</textarea>
+                    <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="field">
-              <label>Qwen Prompt</label>
-              <div class="prompt-wrap">
-                <textarea class="prompt-box" readonly>photo of yohanna_mueller, professional headshot portrait, elegant woman, warm smile, wearing cream silk blouse, soft golden hour studio lighting, shallow depth of field, neutral warm-toned background, shoulders and face framing, luxury editorial photography, shot on Canon EOS R5, 85mm f/1.4 lens, 8k quality</textarea>
-                <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          </div>
+        </div>
+
+        <!-- Photo 2: Meet the Designer -->
+        <div class="photo-card">
+          <div class="photo-card-header">
+            <span class="photo-card-num">02</span>
+            <span class="photo-card-name">Meet the Designer &mdash; Introduction</span>
+          </div>
+          <div class="photo-card-body">
+            <div class="photo-row">
+              <img class="photo-preview" id="prev-intro" src="" alt="Intro preview">
+              <div class="photo-meta">
+                <span class="dim-badge">768 &times; 1024 px &nbsp;(3:4 portrait)</span>
+                <p class="photo-desc">Three-quarter portrait in the designer introduction section.</p>
+                <div class="field">
+                  <label>Image URL</label>
+                  <input id="photo-intro" type="url" placeholder="https://..." oninput="previewImg('intro',this.value)">
+                </div>
+                <div class="field">
+                  <label>Qwen Prompt</label>
+                  <div class="prompt-wrap">
+                    <textarea class="prompt-box" readonly>photo of yohanna_mueller, three-quarter length portrait, elegant woman standing in luxury coastal modern living room, wearing tailored black dress, one hand resting on marble console table, white oak floors, linen sofa and natural textures in background, soft diffused natural window light from the left, warm golden tones, editorial interior design photography, shot on Hasselblad X2D, 50mm lens, 8k quality</textarea>
+                    <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Photo 3: Working/Lifestyle -->
+        <div class="photo-card">
+          <div class="photo-card-header">
+            <span class="photo-card-num">03</span>
+            <span class="photo-card-name">At Work &mdash; Lifestyle Banner</span>
+          </div>
+          <div class="photo-card-body">
+            <div class="photo-row">
+              <img class="photo-preview landscape" id="prev-lifestyle" src="" alt="Lifestyle preview">
+              <div class="photo-meta">
+                <span class="dim-badge">1216 &times; 832 px &nbsp;(3:2 landscape)</span>
+                <p class="photo-desc">Wide landscape shot of Yohanna working.</p>
+                <div class="field">
+                  <label>Image URL</label>
+                  <input id="photo-lifestyle" type="url" placeholder="https://..." oninput="previewImg('lifestyle',this.value)">
+                </div>
+                <div class="field">
+                  <label>Qwen Prompt</label>
+                  <div class="prompt-wrap">
+                    <textarea class="prompt-box" readonly>photo of yohanna_mueller, elegant woman examining luxury fabric swatches at a large white oak design table, marble and brass accents in the room, mood boards and material samples spread on table, wearing cream cashmere sweater, focused expression, bright airy design studio with floor-to-ceiling windows, soft natural daylight, warm neutral color palette, editorial lifestyle photography, wide angle composition, shot on Sony A7R V, 35mm f/1.8 lens, 8k quality</textarea>
+                    <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Photo 4: Philosophy/Editorial -->
+        <div class="photo-card">
+          <div class="photo-card-header">
+            <span class="photo-card-num">04</span>
+            <span class="photo-card-name">Editorial &mdash; Philosophy Section</span>
+          </div>
+          <div class="photo-card-body">
+            <div class="photo-row">
+              <img class="photo-preview" id="prev-editorial" src="" alt="Editorial preview">
+              <div class="photo-meta">
+                <span class="dim-badge">768 &times; 1024 px &nbsp;(3:4 portrait)</span>
+                <p class="photo-desc">Moody, contemplative portrait alongside the design philosophy quote.</p>
+                <div class="field">
+                  <label>Image URL</label>
+                  <input id="photo-editorial" type="url" placeholder="https://..." oninput="previewImg('editorial',this.value)">
+                </div>
+                <div class="field">
+                  <label>Qwen Prompt</label>
+                  <div class="prompt-wrap">
+                    <textarea class="prompt-box" readonly>photo of yohanna_mueller, dramatic editorial portrait, elegant woman in dark tailored blazer, standing by floor-to-ceiling window with city view, moody chiaroscuro lighting, strong shadows, looking pensively to the side, dark interior with brass and marble accents, desaturated warm tones, cinematic atmosphere, luxury fashion editorial style, shot on Leica SL2, 75mm Summilux lens, 8k quality</textarea>
+                    <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Photo 5: Signature/Environmental -->
+        <div class="photo-card">
+          <div class="photo-card-header">
+            <span class="photo-card-num">05</span>
+            <span class="photo-card-name">Signature &mdash; Before Testimonials</span>
+          </div>
+          <div class="photo-card-body">
+            <div class="photo-row">
+              <img class="photo-preview landscape" id="prev-signature" src="" alt="Signature preview">
+              <div class="photo-meta">
+                <span class="dim-badge">1216 &times; 832 px &nbsp;(3:2 landscape)</span>
+                <p class="photo-desc">Environmental portrait in a completed project.</p>
+                <div class="field">
+                  <label>Image URL</label>
+                  <input id="photo-signature" type="url" placeholder="https://..." oninput="previewImg('signature',this.value)">
+                </div>
+                <div class="field">
+                  <label>Qwen Prompt</label>
+                  <div class="prompt-wrap">
+                    <textarea class="prompt-box" readonly>photo of yohanna_mueller, environmental portrait, elegant woman standing in stunning coastal modern living room, wearing flowing white linen outfit, large ocean-view windows behind her, room features low-profile japandi furniture with woven textures and organic shapes, white oak built-in shelving, warm afternoon golden light streaming through windows, wide composition showing both designer and the beautiful space, luxury architectural photography, shot on Phase One IQ4, 45mm lens, 8k quality</textarea>
+                    <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Photo 2: Meet the Designer -->
-    <div class="photo-card">
-      <div class="photo-card-header">
-        <span class="photo-card-num">02</span>
-        <span class="photo-card-name">Meet the Designer &mdash; Introduction Section</span>
+      <div class="divider"></div>
+
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <!-- TESTIMONIALS                                              -->
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <div id="sec-testimonials" class="admin-section">
+        <div class="section-label">Social Proof</div>
+        <h2 class="section-heading">Testimonials</h2>
+        <p class="section-desc">Edit client testimonials displayed on the homepage. Each testimonial includes a quote, author name, location, and star rating.</p>
+
+        <div id="testimonials-list"></div>
+        <button class="add-testi-btn" onclick="addTestimonial()">+ Add Testimonial</button>
       </div>
-      <div class="photo-card-body">
-        <div class="photo-row">
-          <img class="photo-preview" id="prev-intro" src="" alt="Intro preview">
-          <div class="photo-meta">
-            <span class="dim-badge">768 &times; 1024 px &nbsp;(3:4 portrait)</span>
-            <p class="photo-desc">Full-length or three-quarter portrait shown in the designer introduction section after the hero. Elegant pose, standing in a beautifully designed interior space.</p>
-            <div class="field">
-              <label>Image URL</label>
-              <input id="photo-intro" type="url" placeholder="https://..." oninput="previewImg('intro',this.value)">
-            </div>
-            <div class="field">
-              <label>Qwen Prompt</label>
-              <div class="prompt-wrap">
-                <textarea class="prompt-box" readonly>photo of yohanna_mueller, three-quarter length portrait, elegant woman standing in luxury coastal modern living room, wearing tailored black dress, one hand resting on marble console table, white oak floors, linen sofa and natural textures in background, soft diffused natural window light from the left, warm golden tones, editorial interior design photography, shot on Hasselblad X2D, 50mm lens, 8k quality</textarea>
-                <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+
+      <div class="divider"></div>
+
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <!-- PRICING — CONSULTING                                      -->
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <div id="sec-consulting" class="admin-section">
+        <div class="section-label">Pricing</div>
+        <h2 class="section-heading">Consulting Rates</h2>
+        <p class="section-desc">Edit the pricing displayed on the Consulting service page.</p>
+
+        <div class="pricing-section">
+          <div class="pricing-section-header">
+            <span class="pricing-section-name">Design Consulting</span>
+          </div>
+          <div class="pricing-section-body">
+            <div class="field-row-3">
+              <div class="field">
+                <label>Hourly Rate</label>
+                <input id="price-consulting-hourlyRate" type="text" placeholder="$650">
+              </div>
+              <div class="field">
+                <label>Half-Day Rate</label>
+                <input id="price-consulting-halfDay" type="text" placeholder="$4,800">
+              </div>
+              <div class="field">
+                <label>Full-Day Rate</label>
+                <input id="price-consulting-fullDay" type="text" placeholder="$8,500">
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Photo 3: Working/Lifestyle -->
-    <div class="photo-card">
-      <div class="photo-card-header">
-        <span class="photo-card-num">03</span>
-        <span class="photo-card-name">At Work &mdash; Lifestyle Banner</span>
-      </div>
-      <div class="photo-card-body">
-        <div class="photo-row">
-          <img class="photo-preview landscape" id="prev-lifestyle" src="" alt="Lifestyle preview">
-          <div class="photo-meta">
-            <span class="dim-badge">1216 &times; 832 px &nbsp;(3:2 landscape)</span>
-            <p class="photo-desc">Wide landscape shot of Yohanna working — examining fabric swatches, reviewing design boards, or consulting with a client. Captures the creative process in an aspirational setting.</p>
-            <div class="field">
-              <label>Image URL</label>
-              <input id="photo-lifestyle" type="url" placeholder="https://..." oninput="previewImg('lifestyle',this.value)">
-            </div>
-            <div class="field">
-              <label>Qwen Prompt</label>
-              <div class="prompt-wrap">
-                <textarea class="prompt-box" readonly>photo of yohanna_mueller, elegant woman examining luxury fabric swatches at a large white oak design table, marble and brass accents in the room, mood boards and material samples spread on table, wearing cream cashmere sweater, focused expression, bright airy design studio with floor-to-ceiling windows, soft natural daylight, warm neutral color palette, editorial lifestyle photography, wide angle composition, shot on Sony A7R V, 35mm f/1.8 lens, 8k quality</textarea>
-                <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <div class="divider"></div>
+
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <!-- PRICING — STAGING                                         -->
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <div id="sec-staging" class="admin-section">
+        <div class="section-label">Pricing</div>
+        <h2 class="section-heading">Staging Packages</h2>
+        <p class="section-desc">Edit the pricing displayed on the Home Staging service page.</p>
+
+        <div class="pricing-section">
+          <div class="pricing-section-header">
+            <span class="pricing-section-name">Home Staging</span>
+          </div>
+          <div class="pricing-section-body">
+            <div class="field-row-3">
+              <div class="field">
+                <label>Key Rooms</label>
+                <input id="price-staging-keyRooms" type="text" placeholder="$6,500">
+              </div>
+              <div class="field">
+                <label>Full Home</label>
+                <input id="price-staging-fullHome" type="text" placeholder="$14,500">
+              </div>
+              <div class="field">
+                <label>Luxury Estate</label>
+                <input id="price-staging-estate" type="text" placeholder="Custom">
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Photo 4: Philosophy/Editorial -->
-    <div class="photo-card">
-      <div class="photo-card-header">
-        <span class="photo-card-num">04</span>
-        <span class="photo-card-name">Editorial &mdash; Philosophy Section</span>
-      </div>
-      <div class="photo-card-body">
-        <div class="photo-row">
-          <img class="photo-preview" id="prev-editorial" src="" alt="Editorial preview">
-          <div class="photo-meta">
-            <span class="dim-badge">768 &times; 1024 px &nbsp;(3:4 portrait)</span>
-            <p class="photo-desc">Moody, contemplative portrait alongside the design philosophy quote. Dark/dramatic lighting, artistic composition. Think Vogue editorial meets architectural photography.</p>
-            <div class="field">
-              <label>Image URL</label>
-              <input id="photo-editorial" type="url" placeholder="https://..." oninput="previewImg('editorial',this.value)">
-            </div>
-            <div class="field">
-              <label>Qwen Prompt</label>
-              <div class="prompt-wrap">
-                <textarea class="prompt-box" readonly>photo of yohanna_mueller, dramatic editorial portrait, elegant woman in dark tailored blazer, standing by floor-to-ceiling window with city view, moody chiaroscuro lighting, strong shadows, looking pensively to the side, dark interior with brass and marble accents, desaturated warm tones, cinematic atmosphere, luxury fashion editorial style, shot on Leica SL2, 75mm Summilux lens, 8k quality</textarea>
-                <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <div class="divider"></div>
+
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <!-- PRICING — RENTAL                                          -->
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <div id="sec-rental" class="admin-section">
+        <div class="section-label">Pricing</div>
+        <h2 class="section-heading">Rental Makeover Packages</h2>
+        <p class="section-desc">Edit the pricing displayed on the Rental Makeovers service page.</p>
+
+        <div class="pricing-section">
+          <div class="pricing-section-header">
+            <span class="pricing-section-name">Rental Makeovers</span>
+          </div>
+          <div class="pricing-section-body">
+            <div class="field-row-3">
+              <div class="field">
+                <label>Studio &ndash; 2BR</label>
+                <input id="price-rental-studio" type="text" placeholder="From $18K">
+              </div>
+              <div class="field">
+                <label>3 &ndash; 4BR Premium</label>
+                <input id="price-rental-premium" type="text" placeholder="From $45K">
+              </div>
+              <div class="field">
+                <label>Luxury Estate 5BR+</label>
+                <input id="price-rental-luxury" type="text" placeholder="Custom">
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Photo 5: Signature/Environmental -->
-    <div class="photo-card">
-      <div class="photo-card-header">
-        <span class="photo-card-num">05</span>
-        <span class="photo-card-name">Signature &mdash; Before Testimonials</span>
-      </div>
-      <div class="photo-card-body">
-        <div class="photo-row">
-          <img class="photo-preview landscape" id="prev-signature" src="" alt="Signature preview">
-          <div class="photo-meta">
-            <span class="dim-badge">1216 &times; 832 px &nbsp;(3:2 landscape)</span>
-            <p class="photo-desc">Environmental portrait — Yohanna in a completed project. Standing in a stunning coastal-modern room she designed, the space itself is a co-star. Conveys mastery and ownership of the craft.</p>
-            <div class="field">
-              <label>Image URL</label>
-              <input id="photo-signature" type="url" placeholder="https://..." oninput="previewImg('signature',this.value)">
-            </div>
-            <div class="field">
-              <label>Qwen Prompt</label>
-              <div class="prompt-wrap">
-                <textarea class="prompt-box" readonly>photo of yohanna_mueller, environmental portrait, elegant woman standing in stunning coastal modern living room, wearing flowing white linen outfit, large ocean-view windows behind her, room features low-profile japandi furniture with woven textures and organic shapes, white oak built-in shelving, warm afternoon golden light streaming through windows, wide composition showing both designer and the beautiful space, luxury architectural photography, shot on Phase One IQ4, 45mm lens, 8k quality</textarea>
-                <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <div class="divider"></div>
+
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <!-- PRICING — DESIGN                                          -->
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <div id="sec-design" class="admin-section">
+        <div class="section-label">Pricing</div>
+        <h2 class="section-heading">Interior Design Packages</h2>
+        <p class="section-desc">Edit the pricing displayed on the Interior Design service page.</p>
+
+        <div class="pricing-section">
+          <div class="pricing-section-header">
+            <span class="pricing-section-name">Interior Design</span>
+          </div>
+          <div class="pricing-section-body">
+            <div class="field-row-3">
+              <div class="field">
+                <label>Signature Room</label>
+                <input id="price-design-signature" type="text" placeholder="From $18K">
+              </div>
+              <div class="field">
+                <label>Room by Room</label>
+                <input id="price-design-roomByRoom" type="text" placeholder="From $55K">
+              </div>
+              <div class="field">
+                <label>Whole Home</label>
+                <input id="price-design-wholeHome" type="text" placeholder="Custom">
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="divider"></div>
+      <div class="divider"></div>
 
-    <!-- ── CONTACT INFO ───────────────────────────────────────── -->
-    <div class="section-label">Information</div>
-    <h2 class="section-heading">Contact Information</h2>
-    <p class="section-desc">Update the email and phone number displayed in the website footer across all pages.</p>
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <!-- CONTACT INFO                                              -->
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <div id="sec-contact" class="admin-section">
+        <div class="section-label">Information</div>
+        <h2 class="section-heading">Contact Information</h2>
+        <p class="section-desc">Update the email and phone number displayed in the website footer across all pages.</p>
 
-    <div class="field-row">
-      <div class="field">
-        <label>Email Address</label>
-        <input id="contact-email" type="email" placeholder="hello@sableandbrass.com">
+        <div class="field-row">
+          <div class="field">
+            <label>Email Address</label>
+            <input id="contact-email" type="email" placeholder="hello@sableandbrass.com">
+          </div>
+          <div class="field">
+            <label>Phone Number</label>
+            <input id="contact-phone" type="tel" placeholder="+1 (415) 555-0190">
+          </div>
+        </div>
+        <div class="field">
+          <label>Location</label>
+          <input id="contact-location" type="text" placeholder="San Francisco, California">
+        </div>
       </div>
-      <div class="field">
-        <label>Phone Number</label>
-        <input id="contact-phone" type="tel" placeholder="+1 (415) 555-0190">
-      </div>
-    </div>
-    <div class="field" style="margin-top:16px">
-      <label>Location</label>
-      <input id="contact-location" type="text" placeholder="San Francisco, California">
-    </div>
 
-  </div><!-- .content -->
+    </div><!-- .content -->
+  </div><!-- .app-body -->
 
   <!-- ── Sticky Save Bar ──────────────────────────────────────── -->
   <div class="save-bar">
@@ -445,6 +717,12 @@ async function post(section, data) {
     throw new Error(json.error || 'HTTP ' + res.status);
   }
   return res.json();
+}
+
+/* ── Sidebar nav ─────────────────────────────────────────────────── */
+function activateNav(el) {
+  document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+  el.classList.add('active');
 }
 
 /* ── Login ────────────────────────────────────────────────────────── */
@@ -499,11 +777,18 @@ async function loadContent() {
 }
 
 function populateForms(cms) {
-  // Headshot (from bio section)
+  // ── Bio ──
+  set('bio-firstName', cms.bio?.firstName);
+  set('bio-lastName',  cms.bio?.lastName);
+  set('bio-p1',        cms.bio?.p1);
+  set('bio-p2',        cms.bio?.p2);
+  set('bio-p3',        cms.bio?.p3);
+
+  // ── Headshot (from bio section) ──
   set('photo-headshot', cms.bio?.headshotUrl);
   previewImg('headshot', cms.bio?.headshotUrl || '');
 
-  // Site photos
+  // ── Site photos ──
   const ph = cms.photos || {};
   set('photo-intro',      ph.intro);
   set('photo-lifestyle',  ph.lifestyle);
@@ -514,10 +799,107 @@ function populateForms(cms) {
   previewImg('editorial', ph.editorial || '');
   previewImg('signature', ph.signature || '');
 
-  // Contact
+  // ── Contact ──
   set('contact-email',    cms.contact?.email);
   set('contact-phone',    cms.contact?.phone);
   set('contact-location', cms.contact?.location);
+
+  // ── Pricing ──
+  const pr = cms.pricing || {};
+  set('price-consulting-hourlyRate', pr.consulting?.hourlyRate);
+  set('price-consulting-halfDay',    pr.consulting?.halfDay);
+  set('price-consulting-fullDay',    pr.consulting?.fullDay);
+  set('price-staging-keyRooms',      pr.staging?.keyRooms);
+  set('price-staging-fullHome',      pr.staging?.fullHome);
+  set('price-staging-estate',        pr.staging?.estate);
+  set('price-rental-studio',         pr.rental?.studio);
+  set('price-rental-premium',        pr.rental?.premium);
+  set('price-rental-luxury',         pr.rental?.luxury);
+  set('price-design-signature',      pr.design?.signature);
+  set('price-design-roomByRoom',     pr.design?.roomByRoom);
+  set('price-design-wholeHome',      pr.design?.wholeHome);
+
+  // ── Testimonials ──
+  const list = document.getElementById('testimonials-list');
+  list.innerHTML = '';
+  const testimonials = Array.isArray(cms.testimonials) ? cms.testimonials : [];
+  testimonials.forEach((t, i) => addTestimonialCard(t, i));
+}
+
+/* ── Testimonials dynamic UI ─────────────────────────────────────── */
+let testiCounter = 0;
+
+function addTestimonialCard(data, idx) {
+  const list = document.getElementById('testimonials-list');
+  const id = testiCounter++;
+  const card = document.createElement('div');
+  card.className = 'testi-edit-card';
+  card.dataset.testiId = id;
+  card.innerHTML = `
+    <div class="testi-edit-header">
+      <span class="testi-edit-label">Testimonial</span>
+      <button class="testi-remove-btn" onclick="removeTestimonial(${id})">Remove</button>
+    </div>
+    <div class="testi-edit-body">
+      <div class="field">
+        <label>Quote</label>
+        <textarea class="testi-quote" rows="3" placeholder="Client testimonial text...">${esc(data?.quote || '')}</textarea>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Author Name</label>
+          <input class="testi-author" type="text" placeholder="Alexandra & James Whitmore" value="${esc(data?.author || '')}">
+        </div>
+        <div class="field">
+          <label>Location / Title</label>
+          <input class="testi-location" type="text" placeholder="Pacific Heights, San Francisco" value="${esc(data?.location || '')}">
+        </div>
+      </div>
+      <div class="field" style="max-width:120px;">
+        <label>Stars (1-5)</label>
+        <select class="testi-stars">
+          <option value="5" ${(data?.stars || 5) === 5 ? 'selected' : ''}>5 Stars</option>
+          <option value="4" ${data?.stars === 4 ? 'selected' : ''}>4 Stars</option>
+          <option value="3" ${data?.stars === 3 ? 'selected' : ''}>3 Stars</option>
+          <option value="2" ${data?.stars === 2 ? 'selected' : ''}>2 Stars</option>
+          <option value="1" ${data?.stars === 1 ? 'selected' : ''}>1 Star</option>
+        </select>
+      </div>
+    </div>
+  `;
+  list.appendChild(card);
+}
+
+function addTestimonial() {
+  addTestimonialCard(null);
+}
+
+function removeTestimonial(id) {
+  const card = document.querySelector(`.testi-edit-card[data-testi-id="${id}"]`);
+  if (card) card.remove();
+}
+
+function gatherTestimonials() {
+  const cards = document.querySelectorAll('.testi-edit-card');
+  const result = [];
+  cards.forEach(card => {
+    const quote    = card.querySelector('.testi-quote')?.value?.trim() || '';
+    const author   = card.querySelector('.testi-author')?.value?.trim() || '';
+    const location = card.querySelector('.testi-location')?.value?.trim() || '';
+    const stars    = parseInt(card.querySelector('.testi-stars')?.value) || 5;
+    if (quote || author) {
+      result.push({ quote, author, location, stars });
+    }
+  });
+  return result;
+}
+
+function esc(str) {
+  return String(str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
 /* ── Preview images ───────────────────────────────────────────────── */
@@ -548,17 +930,14 @@ async function saveAll() {
   status.textContent = 'Saving\u2026';
 
   try {
-    // Load existing data to preserve fields we don't edit here
-    const existing = await fetch(API).then(r => r.json());
-
-    // Save bio (only update headshot URL, preserve text fields)
+    // Save bio
     await post('bio', {
       headshotUrl: val('photo-headshot'),
-      firstName:   existing.bio?.firstName || 'Yohanna',
-      lastName:    existing.bio?.lastName || 'Mueller',
-      p1: existing.bio?.p1 || '',
-      p2: existing.bio?.p2 || '',
-      p3: existing.bio?.p3 || ''
+      firstName:   val('bio-firstName'),
+      lastName:    val('bio-lastName'),
+      p1:          val('bio-p1'),
+      p2:          val('bio-p2'),
+      p3:          val('bio-p3')
     });
 
     // Save photos
@@ -567,6 +946,33 @@ async function saveAll() {
       lifestyle:  val('photo-lifestyle'),
       editorial:  val('photo-editorial'),
       signature:  val('photo-signature')
+    });
+
+    // Save testimonials
+    await post('testimonials', gatherTestimonials());
+
+    // Save pricing
+    await post('pricing', {
+      consulting: {
+        hourlyRate: val('price-consulting-hourlyRate'),
+        halfDay:    val('price-consulting-halfDay'),
+        fullDay:    val('price-consulting-fullDay')
+      },
+      staging: {
+        keyRooms: val('price-staging-keyRooms'),
+        fullHome: val('price-staging-fullHome'),
+        estate:   val('price-staging-estate')
+      },
+      rental: {
+        studio:  val('price-rental-studio'),
+        premium: val('price-rental-premium'),
+        luxury:  val('price-rental-luxury')
+      },
+      design: {
+        signature:  val('price-design-signature'),
+        roomByRoom: val('price-design-roomByRoom'),
+        wholeHome:  val('price-design-wholeHome')
+      }
     });
 
     // Save contact
