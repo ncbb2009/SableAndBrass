@@ -10,4 +10,4 @@ pages_build_output_dir = "."
 # Then replace YOUR_KV_NAMESPACE_ID_HERE with the id from the output
 [[kv_namespaces]]
 binding = "CMS_DATA"
-id = "YOUR_KV_NAMESPACE_ID_HERE"
+id = "2d10c49df0de4da8a4e935171ec36c83"
