@@ -1,224 +1,1459 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sable &amp; Brass Interiors | Coastal Luxury Interior Design</title>
-  <meta name="description" content="Sable & Brass Interiors — Coastal luxury interior design. Timeless spaces where warmth meets sophistication.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sable & Brass — Ultra-Luxury Interior Design · San Francisco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400&family=Playfair+Display:ital,wght@0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sable: #110e0b;
+  --sable-2: #1c1712;
+  --sable-3: #2a2117;
+  --brass: #b89230;
+  --brass-mid: #cda83d;
+  --brass-light: #e2c86a;
+  --brass-pale: #f0dea0;
+  --cream: #f6f1e9;
+  --cream-2: #ede6d8;
+  --cream-3: #e3d9c8;
+  --stone: #b0a390;
+  --taupe: #7a6b59;
+  --warm-white: #faf7f2;
+  --text: #1a150f;
+  --text-2: #4a3f33;
+  --text-3: #8a7a68;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  font-family:'Jost', sans-serif;
+  font-weight:300;
+  background:var(--warm-white);
+  color:var(--text);
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* === CURSOR === */
+#cursor {
+  position:fixed; top:0; left:0;
+  width:10px; height:10px;
+  background:var(--brass);
+  border-radius:50%;
+  pointer-events:none;
+  z-index:99999;
+  will-change:transform;
+  transition:width .25s,height .25s,background .25s;
+}
+#cursor.hovering { width:6px; height:6px; background:var(--brass-light); }
+#cursor-ring {
+  position:fixed; top:0; left:0;
+  width:40px; height:40px;
+  border:1px solid rgba(184,146,48,.5);
+  border-radius:50%;
+  pointer-events:none;
+  z-index:99998;
+  will-change:transform;
+  transition:width .3s,height .3s,border-color .3s;
+}
+#cursor-ring.hovering { width:56px; height:56px; border-color:rgba(184,146,48,.8); }
+
+/* === NAV === */
+#main-nav {
+  position:fixed; top:0; left:0; right:0;
+  z-index:1000;
+  padding:30px 64px;
+  display:flex; align-items:center; justify-content:space-between;
+  transition:padding .5s, background .5s, backdrop-filter .5s;
+}
+#main-nav.scrolled {
+  padding:16px 64px;
+  background:rgba(17,14,11,.96);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(184,146,48,.12);
+}
+.nav-brand { text-decoration:none; display:flex; flex-direction:column; align-items:center; gap:3px; }
+.nav-brand-name {
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px; font-weight:300;
+  letter-spacing:.4em; color:var(--cream);
+  text-transform:uppercase;
+}
+.nav-brand-name span { color:var(--brass); font-style:italic; }
+.nav-brand-line { width:100%; height:1px; background:linear-gradient(90deg,transparent,var(--brass),transparent); }
+.nav-brand-sub {
+  font-size:8.5px; letter-spacing:.38em;
+  color:var(--brass); text-transform:uppercase;
+}
+.nav-links { display:flex; gap:36px; list-style:none; }
+.nav-links a {
+  font-size:10.5px; letter-spacing:.22em; font-weight:400;
+  color:rgba(176,163,144,.8); text-decoration:none;
+  text-transform:uppercase;
+  transition:color .3s;
+  position:relative;
+}
+.nav-links a::after {
+  content:''; position:absolute; bottom:-3px; left:0; right:0;
+  height:1px; background:var(--brass);
+  transform:scaleX(0); transform-origin:left;
+  transition:transform .35s ease;
+}
+.nav-links a:hover { color:var(--brass); }
+.nav-links a:hover::after { transform:scaleX(1); }
+.nav-cta {
+  font-size:10px; letter-spacing:.2em; font-weight:400;
+  color:var(--sable); background:var(--brass);
+  text-decoration:none; text-transform:uppercase;
+  padding:13px 30px;
+  transition:background .3s;
+  position:relative; overflow:hidden;
+}
+.nav-cta::after {
+  content:''; position:absolute; inset:0;
+  background:var(--brass-light);
+  transform:translateX(-101%);
+  transition:transform .4s cubic-bezier(.77,0,.18,1);
+}
+.nav-cta:hover::after { transform:translateX(0); }
+.nav-cta span { position:relative; z-index:1; }
+
+/* === SCROLL REVEAL === */
+[data-reveal] { opacity:0; transform:translateY(28px); transition:opacity .9s ease, transform .9s ease; }
+[data-reveal].revealed { opacity:1; transform:translateY(0); }
+[data-reveal="left"] { transform:translateX(-28px); }
+[data-reveal="left"].revealed { transform:translateX(0); }
+[data-reveal="right"] { transform:translateX(28px); }
+[data-reveal="right"].revealed { transform:translateX(0); }
+[data-reveal="scale"] { transform:scale(.97); }
+[data-reveal="scale"].revealed { transform:scale(1); }
+
+/* === HERO === */
+.hero {
+  height:100vh; position:relative;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden; background:var(--sable);
+}
+.hero-parallax {
+  position:absolute; inset:-15%;
+  background:url('https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=2000&q=85') center/cover no-repeat;
+  will-change:transform;
+}
+.hero-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(160deg,rgba(17,14,11,.88) 0%,rgba(28,23,18,.72) 45%,rgba(17,14,11,.9) 100%);
+}
+.hero-grain {
+  position:absolute; inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:.4; pointer-events:none;
+}
+/* Rotating ornament ring */
+.hero-ring {
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:min(70vw,680px); height:min(70vw,680px);
+  border:1px solid rgba(184,146,48,.12);
+  border-radius:50%;
+  animation:spinRing 60s linear infinite;
+}
+.hero-ring::before {
+  content:''; position:absolute; inset:18px;
+  border:1px solid rgba(184,146,48,.06);
+  border-radius:50%;
+}
+.hero-ring::after {
+  content:''; position:absolute; inset:36px;
+  border:1px dashed rgba(184,146,48,.04);
+  border-radius:50%;
+}
+@keyframes spinRing { to { transform:translate(-50%,-50%) rotate(360deg); } }
+
+.hero-content {
+  position:relative; text-align:center;
+  max-width:960px; padding:0 40px;
+}
+.hero-eyebrow {
+  display:block;
+  font-size:9.5px; letter-spacing:.55em;
+  color:var(--brass); text-transform:uppercase;
+  margin-bottom:28px;
+  animation:fadeIn 1.2s ease .3s both;
+}
+.hero-logo {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(72px,11vw,136px);
+  font-weight:300; line-height:.88;
+  color:var(--cream); letter-spacing:.06em;
+  animation:riseUp 1.4s cubic-bezier(.16,1,.3,1) .5s both;
+}
+.hero-logo .amp { color:var(--brass); font-style:italic; }
+.hero-divider {
+  display:flex; align-items:center; gap:18px;
+  justify-content:center; margin:32px auto;
+  animation:fadeIn 1.2s ease .9s both;
+}
+.hdl { flex:1; max-width:110px; height:1px; background:linear-gradient(90deg,transparent,var(--brass)); }
+.hdl.r { background:linear-gradient(90deg,var(--brass),transparent); }
+.hdd { width:7px; height:7px; background:var(--brass); transform:rotate(45deg); }
+.hero-tagline {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(17px,2.6vw,26px);
+  font-weight:300; font-style:italic;
+  color:rgba(176,163,144,.85);
+  letter-spacing:.04em; line-height:1.5;
+  animation:fadeIn 1.2s ease 1.1s both;
+  margin-bottom:10px;
+}
+.hero-sub {
+  font-size:9.5px; letter-spacing:.35em;
+  color:var(--taupe); text-transform:uppercase;
+  margin-bottom:52px;
+  animation:fadeIn 1.2s ease 1.3s both;
+}
+.hero-btns {
+  display:flex; gap:18px; justify-content:center; flex-wrap:wrap;
+  animation:fadeIn 1.2s ease 1.5s both;
+}
+.btn-brass {
+  display:inline-flex; align-items:center; gap:12px;
+  background:var(--brass); color:var(--sable);
+  font-size:10px; letter-spacing:.25em; font-weight:400;
+  text-transform:uppercase; text-decoration:none;
+  padding:17px 46px; position:relative; overflow:hidden;
+  transition:color .3s;
+}
+.btn-brass::before {
+  content:''; position:absolute; inset:0;
+  background:var(--brass-light); transform:translateX(-101%);
+  transition:transform .5s cubic-bezier(.77,0,.18,1);
+}
+.btn-brass:hover::before { transform:translateX(0); }
+.btn-brass span { position:relative; z-index:1; }
+.btn-ghost {
+  display:inline-flex; align-items:center;
+  border:1px solid rgba(184,146,48,.35); color:rgba(246,241,233,.8);
+  font-size:10px; letter-spacing:.25em; font-weight:400;
+  text-transform:uppercase; text-decoration:none;
+  padding:17px 46px;
+  transition:border-color .3s, color .3s;
+}
+.btn-ghost:hover { border-color:var(--brass); color:var(--brass); }
+.hero-scroll-cue {
+  position:absolute; bottom:36px; left:50%;
+  transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  animation:fadeIn 1s ease 2s both;
+}
+.hero-scroll-cue span { font-size:8px; letter-spacing:.45em; color:var(--brass); text-transform:uppercase; }
+.scroll-line { width:1px; height:44px; background:linear-gradient(to bottom,var(--brass),transparent); animation:scrollPulse 2s ease-in-out infinite; }
+@keyframes scrollPulse { 0%,100%{opacity:.4;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(1.1)} }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+@keyframes riseUp { from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:translateY(0)} }
+
+/* === MARQUEE === */
+.marquee-bar {
+  background:var(--brass);
+  padding:14px 0; overflow:hidden;
+}
+.marquee-track {
+  display:flex; gap:0;
+  white-space:nowrap;
+  animation:marqueeScroll 32s linear infinite;
+}
+.marquee-track:hover { animation-play-state:paused; }
+@keyframes marqueeScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.marquee-item {
+  font-family:'Cormorant Garamond',serif;
+  font-size:15px; font-style:italic; font-weight:300;
+  color:var(--sable-2); padding:0 40px;
+  flex-shrink:0;
+}
+.marquee-sep { color:rgba(17,14,11,.4); }
+
+/* === SECTIONS === */
+.section-eyebrow {
+  display:block; font-size:9.5px; letter-spacing:.5em;
+  color:var(--brass); text-transform:uppercase;
+  margin-bottom:18px;
+}
+.section-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(34px,5.5vw,64px);
+  font-weight:300; line-height:1.08; color:var(--text);
+  margin-bottom:24px;
+}
+.section-title em { font-style:italic; color:var(--brass); }
+.section-title.light { color:var(--cream); }
+.body-text {
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px; font-weight:300; line-height:1.85;
+  color:var(--text-2);
+}
+.body-text.light { color:var(--stone); }
+
+/* === DESIGNER INTRO === */
+.designer-intro {
+  background:var(--sable);
+  padding:120px 80px;
+  position:relative; overflow:hidden;
+}
+.designer-intro-inner {
+  max-width:1360px; margin:0 auto;
+  display:grid; grid-template-columns:420px 1fr;
+  gap:80px; align-items:center;
+}
+@media(max-width:900px){ .designer-intro-inner{grid-template-columns:1fr;gap:48px;} }
+.intro-photo-frame { position:relative; }
+.intro-photo-border { padding:8px; border:1px solid rgba(184,146,48,.25); }
+.intro-photo {
+  display:block; width:100%;
+  aspect-ratio:3/4; object-fit:cover;
+  filter:saturate(.85);
+}
+.intro-content {}
+.intro-eyebrow {
+  font-size:9px; letter-spacing:.45em;
+  color:var(--brass); text-transform:uppercase;
+  margin-bottom:18px; display:block;
+}
+.intro-name {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(36px,5vw,56px);
+  font-weight:300; line-height:1.05; color:var(--cream);
+  margin-bottom:20px;
+}
+.intro-name em { color:var(--brass); font-style:italic; }
+.intro-text {
+  font-family:'Cormorant Garamond',serif;
+  font-size:17px; font-weight:300; line-height:1.9;
+  color:var(--stone); margin-bottom:28px;
+}
+
+/* === LIFESTYLE BANNER === */
+.lifestyle-banner {
+  position:relative; overflow:hidden;
+  height:500px;
+}
+.lifestyle-img {
+  width:100%; height:100%;
+  object-fit:cover; object-position:center 30%;
+  filter:saturate(.8) brightness(.9);
+}
+.lifestyle-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to right, rgba(17,14,11,.85) 0%, rgba(17,14,11,.3) 50%, rgba(17,14,11,.85) 100%);
+  display:flex; align-items:center; justify-content:center;
+  text-align:center; padding:40px;
+}
+.lifestyle-quote {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(22px,3.5vw,38px);
+  font-weight:300; font-style:italic;
+  color:var(--cream); line-height:1.45;
+  max-width:700px;
+}
+.lifestyle-quote span { color:var(--brass); }
+
+/* === PHILOSOPHY === */
+.philosophy {
+  background:var(--sable);
+  padding:140px 80px;
+  text-align:center;
+  position:relative; overflow:hidden;
+}
+.philosophy-grid {
+  max-width:1360px; margin:0 auto;
+  display:grid; grid-template-columns:1fr 420px;
+  gap:80px; align-items:center;
+}
+@media(max-width:900px){ .philosophy-grid{grid-template-columns:1fr;gap:48px;} }
+.philosophy-photo-frame { order:2; }
+@media(max-width:900px){ .philosophy-photo-frame{order:0;} }
+.philosophy-photo-border { padding:8px; border:1px solid rgba(184,146,48,.15); }
+.philosophy-photo {
+  display:block; width:100%;
+  aspect-ratio:3/4; object-fit:cover;
+  filter:saturate(.7) brightness(.85);
+}
+
+/* === SIGNATURE BANNER === */
+.signature-banner {
+  position:relative; overflow:hidden;
+  height:560px;
+}
+.signature-img {
+  width:100%; height:100%;
+  object-fit:cover; object-position:center 40%;
+  filter:saturate(.8);
+}
+.signature-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(17,14,11,.92) 0%, rgba(17,14,11,.4) 40%, rgba(17,14,11,.7) 100%);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:flex-end;
+  text-align:center; padding:64px 40px;
+}
+.signature-text {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(28px,4vw,48px);
+  font-weight:300; color:var(--cream);
+  line-height:1.2; margin-bottom:12px;
+}
+.signature-text em { color:var(--brass); font-style:italic; }
+.signature-sub {
+  font-size:10px; letter-spacing:.35em;
+  color:var(--taupe); text-transform:uppercase;
+}
+.philosophy-bg-ring {
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:900px; height:900px;
+  border:1px solid rgba(184,146,48,.04);
+  border-radius:50%;
+  pointer-events:none;
+}
+.philosophy-statement {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(22px,4vw,48px);
+  font-weight:300; line-height:1.25;
+  color:var(--stone); max-width:880px; margin:0 auto 40px;
+}
+.philosophy-statement .strike {
+  text-decoration:line-through;
+  color:rgba(176,163,144,.4);
+}
+.philosophy-statement em { font-style:italic; }
+.philosophy-rule {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(36px,6vw,76px);
+  font-weight:300; color:var(--cream);
+  margin-bottom:24px; line-height:1;
+}
+.philosophy-rule em { color:var(--brass); font-style:italic; }
+.philosophy-sub {
+  font-size:11px; letter-spacing:.2em;
+  color:var(--taupe); text-transform:uppercase; line-height:2.2;
+  max-width:620px; margin:0 auto;
+}
+.brass-quote-block {
+  border-left:2px solid var(--brass);
+  padding:28px 40px;
+  background:rgba(184,146,48,.06);
+  margin-top:40px;
+}
+.brass-quote-block blockquote {
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px; font-style:italic; font-weight:300;
+  color:var(--stone); line-height:1.75;
+}
+.brass-quote-block cite {
+  display:block; margin-top:16px;
+  font-size:10px; letter-spacing:.28em;
+  color:var(--brass); text-transform:uppercase;
+  font-style:normal;
+}
+
+/* === TRIANGLE === */
+.triangle-section {
+  background:var(--cream-2);
+  padding:120px 80px;
+}
+.triangle-inner {
+  max-width:1360px; margin:0 auto;
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:100px; align-items:center;
+}
+@media(max-width:900px){.triangle-inner{grid-template-columns:1fr;gap:60px;}}
+.triangle-svg-wrap { display:flex; justify-content:center; }
+.triangle-svg-wrap svg { max-width:440px; width:100%; }
+
+/* === SERVICES === */
+.services {
+  background:var(--warm-white);
+  padding:120px 64px;
+}
+.services-header { text-align:center; max-width:700px; margin:0 auto 72px; }
+.services-grid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:3px;
+  max-width:1400px; margin:0 auto;
+}
+@media(max-width:800px){ .services-grid{grid-template-columns:1fr;} }
+.service-card {
+  position:relative; overflow:hidden;
+  aspect-ratio:4/3; cursor:none;
+}
+.service-img {
+  width:100%; height:100%;
+  object-fit:cover;
+  transition:transform .9s cubic-bezier(.25,.46,.45,.94);
+}
+.service-card:hover .service-img { transform:scale(1.07); }
+.service-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(17,14,11,.94) 0%, rgba(17,14,11,.35) 55%, transparent 100%);
+  display:flex; flex-direction:column; justify-content:flex-end;
+  padding:48px; transition:background .5s;
+}
+.service-card:hover .service-overlay {
+  background:linear-gradient(to top, rgba(17,14,11,.97) 0%, rgba(17,14,11,.55) 65%, rgba(17,14,11,.08) 100%);
+}
+.service-num { font-size:9.5px; letter-spacing:.4em; color:var(--brass); margin-bottom:8px; }
+.service-name {
+  font-family:'Cormorant Garamond',serif;
+  font-size:34px; font-weight:300; color:var(--cream);
+  margin-bottom:14px; line-height:1.1;
+}
+.service-desc {
+  font-size:13px; line-height:1.85;
+  color:rgba(176,163,144,.8); max-width:400px;
+  opacity:0; transform:translateY(12px);
+  transition:opacity .45s, transform .45s;
+}
+.service-card:hover .service-desc { opacity:1; transform:translateY(0); }
+.service-link {
+  display:inline-flex; align-items:center; gap:10px;
+  font-size:9.5px; letter-spacing:.3em;
+  color:var(--brass); text-transform:uppercase;
+  text-decoration:none; margin-top:22px;
+  opacity:0; transform:translateY(10px);
+  transition:opacity .45s .08s, transform .45s .08s;
+}
+.service-link::after { content:'→'; transition:transform .3s; }
+.service-link:hover::after { transform:translateX(5px); }
+.service-card:hover .service-link { opacity:1; transform:translateY(0); }
+
+/* === PORTFOLIO REEL === */
+.reel { background:var(--sable-2); padding:100px 0; overflow:hidden; }
+.reel-header { text-align:center; padding:0 64px 64px; }
+.reel-track {
+  display:flex; gap:0;
+  cursor:none;
+}
+.reel-item {
+  flex:0 0 400px; height:520px; overflow:hidden;
+  position:relative; transition:flex-basis .7s cubic-bezier(.25,.46,.45,.94);
+}
+.reel-item:hover { flex-basis:560px; }
+.reel-item img {
+  width:100%; height:100%; object-fit:cover;
+  filter:saturate(.75) brightness(.88);
+  transition:filter .6s;
+}
+.reel-item:hover img { filter:saturate(1) brightness(1); }
+.reel-caption {
+  position:absolute; bottom:0; left:0; right:0;
+  padding:32px 28px;
+  background:linear-gradient(to top,rgba(17,14,11,.85),transparent);
+  opacity:0; transition:opacity .4s;
+}
+.reel-item:hover .reel-caption { opacity:1; }
+.reel-caption-text {
+  font-family:'Cormorant Garamond',serif;
+  font-size:16px; font-style:italic; font-weight:300;
+  color:var(--cream);
+}
+
+/* === AESTHETIC DNA === */
+.aesthetic { background:var(--cream); padding:120px 80px; }
+.aesthetic-inner { max-width:1360px; margin:0 auto; }
+.aesthetic-header { text-align:center; max-width:700px; margin:0 auto 72px; }
+.bars-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:3px; }
+@media(max-width:800px){ .bars-grid{grid-template-columns:1fr;} }
+.bar-card {
+  background:var(--sable);
+  padding:52px 44px;
+  position:relative; overflow:hidden;
+}
+.bar-card::before {
+  content:''; position:absolute;
+  top:0; left:0; right:0; height:2px;
+  background:var(--brass);
+}
+.bar-pct {
+  font-family:'Cormorant Garamond',serif;
+  font-size:72px; font-weight:300;
+  color:var(--brass); line-height:1;
+  margin-bottom:8px;
+}
+.bar-label {
+  font-size:10px; letter-spacing:.35em;
+  color:var(--cream); text-transform:uppercase; margin-bottom:20px;
+}
+.bar-fill-track { height:2px; background:rgba(184,146,48,.2); margin-bottom:24px; }
+.bar-fill { height:100%; background:var(--brass); transition:width 1.5s cubic-bezier(.25,.46,.45,.94); }
+.bar-desc { font-size:13px; line-height:1.9; color:var(--stone); }
+
+/* === TESTIMONIALS === */
+.testimonials { background:var(--sable); padding:130px 80px; }
+.testimonials-header { text-align:center; margin-bottom:80px; }
+.testi-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:2px; max-width:1360px; margin:0 auto;
+}
+@media(max-width:900px){ .testi-grid{grid-template-columns:1fr;} }
+.testi-card {
+  background:var(--sable-2);
+  padding:52px 44px;
+  border-bottom:2px solid var(--brass);
+  position:relative;
+}
+.testi-mark {
+  font-family:'Cormorant Garamond',serif;
+  font-size:96px; line-height:.4;
+  color:var(--brass); opacity:.25;
+  margin-bottom:24px;
+  display:block;
+}
+.testi-text {
+  font-family:'Cormorant Garamond',serif;
+  font-size:17px; font-style:italic; font-weight:300;
+  line-height:1.9; color:var(--stone);
+  margin-bottom:32px;
+}
+.testi-stars { display:flex; gap:3px; margin-bottom:18px; }
+.testi-stars span { color:var(--brass); font-size:13px; }
+.testi-name {
+  font-size:12px; letter-spacing:.15em;
+  color:var(--cream); margin-bottom:4px;
+}
+.testi-loc { font-size:11px; letter-spacing:.1em; color:var(--taupe); }
+
+/* === PROFILE === */
+.profile { background:var(--cream-2); padding:130px 80px; }
+.profile-inner {
+  max-width:1360px; margin:0 auto;
+  display:grid; grid-template-columns:420px 1fr;
+  gap:100px; align-items:start;
+}
+@media(max-width:900px){ .profile-inner{grid-template-columns:1fr;} }
+.profile-frame { position:relative; }
+.profile-img-border { padding:10px; border:1px solid rgba(184,146,48,.3); }
+.profile-img {
+  display:block; width:100%;
+  aspect-ratio:3/4; object-fit:cover;
+  object-position:top;
+  filter:saturate(.82);
+}
+.profile-medal {
+  position:absolute; bottom:-24px; right:-24px;
+  width:118px; height:118px;
+  background:var(--brass); border-radius:50%;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  text-align:center; gap:2px;
+}
+.profile-medal-num {
+  font-family:'Cormorant Garamond',serif;
+  font-size:32px; font-weight:300; color:var(--sable); line-height:1;
+}
+.profile-medal-label {
+  font-size:8px; letter-spacing:.12em;
+  color:var(--sable-3); text-transform:uppercase; line-height:1.5;
+}
+.profile-content { padding-top:16px; }
+.profile-name {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(40px,5.5vw,64px);
+  font-weight:300; line-height:1; color:var(--text); margin-bottom:8px;
+}
+.profile-title-label {
+  font-size:10px; letter-spacing:.35em;
+  color:var(--brass); text-transform:uppercase; margin-bottom:32px;
+  display:block;
+}
+.profile-stats {
+  display:flex; gap:48px;
+  padding:28px 0; margin:36px 0;
+  border-top:1px solid var(--cream-3);
+  border-bottom:1px solid var(--cream-3);
+}
+.p-stat-num {
+  font-family:'Cormorant Garamond',serif;
+  font-size:44px; font-weight:300; color:var(--brass); line-height:1;
+}
+.p-stat-label { font-size:9.5px; letter-spacing:.2em; color:var(--text-3); text-transform:uppercase; }
+
+/* === DESIGNERS === */
+.designers { background:var(--warm-white); padding:120px 80px; }
+.designers-header { text-align:center; max-width:700px; margin:0 auto 72px; }
+.designers-grid {
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:2px; max-width:1400px; margin:0 auto;
+}
+@media(max-width:1100px){ .designers-grid{grid-template-columns:repeat(3,1fr);} }
+@media(max-width:700px){ .designers-grid{grid-template-columns:repeat(2,1fr);} }
+.designer-card {
+  background:var(--sable);
+  padding:44px 32px;
+  text-align:center;
+  position:relative; overflow:hidden;
+  transition:background .4s;
+}
+.designer-card::before {
+  content:''; position:absolute; top:0; left:0; right:0;
+  height:2px; background:var(--brass); transform:scaleX(0);
+  transition:transform .4s; transform-origin:left;
+}
+.designer-card:hover { background:var(--sable-3); }
+.designer-card:hover::before { transform:scaleX(1); }
+.designer-name {
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px; font-weight:300; color:var(--cream);
+  margin-bottom:10px; line-height:1.2;
+}
+.designer-style {
+  font-size:9px; letter-spacing:.25em;
+  color:var(--brass); text-transform:uppercase;
+  margin-bottom:16px;
+}
+.designer-desc { font-size:12px; line-height:1.8; color:var(--stone); }
+
+/* === INTAKE FORM === */
+.intake { background:var(--sable-2); padding:130px 80px; }
+.intake-inner { max-width:920px; margin:0 auto; }
+.intake-header { text-align:center; margin-bottom:64px; }
+.intake-header .section-title { color:var(--cream); }
+.intake-sub {
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px; font-style:italic; font-weight:300;
+  color:var(--stone); line-height:1.75;
+  max-width:580px; margin:0 auto;
+}
+.intake-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:22px;
+}
+@media(max-width:700px){ .intake-grid{grid-template-columns:1fr;} }
+.field { display:flex; flex-direction:column; gap:8px; }
+.field.full { grid-column:1/-1; }
+.field label {
+  font-size:9.5px; letter-spacing:.38em;
+  color:var(--brass); text-transform:uppercase;
+}
+.field input, .field select, .field textarea {
+  background:rgba(255,255,255,.04);
+  border:none; border-bottom:1px solid rgba(184,146,48,.22);
+  padding:14px 0;
+  font-family:'Cormorant Garamond',serif;
+  font-size:16.5px; font-weight:300;
+  color:var(--cream); outline:none;
+  transition:border-color .35s;
+  width:100%;
+}
+.field input::placeholder, .field textarea::placeholder { color:rgba(176,163,144,.4); }
+.field input:focus, .field select:focus, .field textarea:focus {
+  border-bottom-color:var(--brass);
+}
+.field select option { background:var(--sable-2); color:var(--cream); }
+.field textarea { height:130px; resize:none; }
+.intake-footer { grid-column:1/-1; text-align:center; padding-top:12px; }
+.intake-note {
+  font-family:'Cormorant Garamond',serif;
+  font-size:13.5px; font-style:italic; font-weight:300;
+  color:var(--taupe); margin-top:20px; line-height:1.7;
+}
+.submit-success {
+  display:none; text-align:center; padding:60px 40px;
+  background:rgba(184,146,48,.08);
+  border:1px solid rgba(184,146,48,.25);
+}
+.submit-success-icon {
+  font-size:40px; color:var(--brass); margin-bottom:20px;
+}
+.submit-success h3 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:36px; font-weight:300; color:var(--cream); margin-bottom:12px;
+}
+.submit-success p { font-size:14px; color:var(--stone); line-height:1.8; }
+
+/* === FOOTER === */
+footer {
+  background:var(--sable);
+  border-top:1px solid rgba(184,146,48,.14);
+  padding:64px 80px;
+}
+.footer-inner {
+  max-width:1400px; margin:0 auto;
+  display:grid; grid-template-columns:1fr auto 1fr;
+  gap:60px; align-items:center;
+}
+@media(max-width:900px){ .footer-inner{grid-template-columns:1fr;text-align:center;gap:32px;} }
+.footer-brand-name {
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px; font-weight:300; letter-spacing:.2em; color:var(--cream);
+}
+.footer-brand-name em { color:var(--brass); font-style:italic; }
+.footer-brand-loc { font-size:10px; letter-spacing:.22em; color:var(--taupe); margin-top:6px; }
+.footer-links-list { display:flex; flex-direction:column; gap:12px; list-style:none; text-align:center; }
+.footer-links-list a {
+  font-size:10px; letter-spacing:.22em; color:var(--stone);
+  text-decoration:none; text-transform:uppercase;
+  transition:color .3s;
+}
+.footer-links-list a:hover { color:var(--brass); }
+.footer-contact { text-align:right; }
+.footer-contact-email {
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px; font-weight:300; color:var(--brass);
+  display:block; margin-bottom:6px;
+}
+.footer-contact-phone {
+  font-size:13px; letter-spacing:.1em; color:var(--taupe);
+}
+.footer-copy {
+  grid-column:1/-1;
+  border-top:1px solid rgba(184,146,48,.1);
+  padding-top:28px; text-align:center;
+  font-size:10px; letter-spacing:.15em; color:var(--taupe);
+}
+</style>
 </head>
 <body>
 
-  <!-- Navigation -->
-  <nav class="nav" id="nav">
-    <div class="nav-inner">
-      <a href="#" class="nav-logo">Sable &amp; Brass</a>
-      <button class="nav-toggle" aria-label="Toggle menu" id="navToggle">
-        <span></span><span></span><span></span>
-      </button>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#philosophy">Philosophy</a></li>
-        <li><a href="#testimonials">Testimonials</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
 
-  <!-- Hero Section -->
-  <header class="hero">
-    <div class="hero-content">
-      <p class="hero-tagline">Coastal Luxury Interior Design</p>
-      <h1 class="hero-title">Where Warmth<br>Meets Sophistication</h1>
-      <p class="hero-subtitle">Crafting timeless interiors that honor the beauty of coastal living</p>
-      <a href="#contact" class="btn btn-primary">Begin Your Journey</a>
-    </div>
-  </header>
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="index.html" class="nav-brand">
+    <span class="nav-brand-name">Sable <span>&</span> Brass</span>
+    <div class="nav-brand-line"></div>
+    <span class="nav-brand-sub">Interior Design · San Francisco</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="consulting.html">Consulting</a></li>
+    <li><a href="staging.html">Staging</a></li>
+    <li><a href="rental.html">Rental Makeovers</a></li>
+    <li><a href="design.html">Interior Design</a></li>
+  </ul>
+  <a href="#intake" class="nav-cta"><span>Begin Your Journey</span></a>
+</nav>
 
-  <!-- Marquee -->
-  <div class="marquee">
-    <div class="marquee-track">
-      <span>Timeless Design &nbsp;&bull;&nbsp; Coastal Elegance &nbsp;&bull;&nbsp; Curated Interiors &nbsp;&bull;&nbsp; Bespoke Luxury &nbsp;&bull;&nbsp; Artful Living &nbsp;&bull;&nbsp; Timeless Design &nbsp;&bull;&nbsp; Coastal Elegance &nbsp;&bull;&nbsp; Curated Interiors &nbsp;&bull;&nbsp; Bespoke Luxury &nbsp;&bull;&nbsp; Artful Living &nbsp;&bull;&nbsp;</span>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-parallax"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-ring"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">San Francisco · Est. 2010 · By Appointment Only</span>
+    <h1 class="hero-logo">Sable <span class="amp">&amp;</span> Brass</h1>
+    <div class="hero-divider">
+      <div class="hdl"></div><div class="hdd"></div><div class="hdl r"></div>
+    </div>
+    <p class="hero-tagline">Where Perfection Is Not An Option —<br>It Is The Only Standard</p>
+    <p class="hero-sub">Yohanna Mueller · Principal Designer</p>
+    <div class="hero-btns">
+      <a href="#intake" class="btn-brass"><span>Begin Your Project</span></a>
+      <a href="#portfolio" class="btn-ghost">View Portfolio</a>
     </div>
   </div>
+  <div class="hero-scroll-cue">
+    <div class="scroll-line"></div>
+    <span>Discover</span>
+  </div>
+</section>
 
-  <!-- Meet the Designer -->
-  <section class="section about" id="about">
-    <div class="container about-grid">
-      <div class="about-image">
-        <img data-cms="photo-intro" src="https://placehold.co/768x1024/e8e0d8/8a7968?text=Meet+the+Designer" alt="Yohanna Mueller, Interior Designer" loading="lazy">
-      </div>
-      <div class="about-text">
-        <p class="section-label">Meet the Designer</p>
-        <h2 class="section-title">Yohanna Mueller</h2>
-        <p>With a passion for creating spaces that feel both luxurious and livable, I founded Sable &amp; Brass Interiors to bring the warmth of coastal living into every home I touch.</p>
-        <p>My approach blends natural textures, thoughtful color palettes, and curated details to craft interiors that tell your story. Every project begins with listening — understanding how you live, what inspires you, and what home truly means to you.</p>
-        <div class="about-headshot">
-          <img data-cms="headshot" src="https://placehold.co/768x1024/d4cbc0/8a7968?text=Headshot" alt="Yohanna Mueller headshot" loading="lazy">
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span class="marquee-item">Refined Organic Coastal Modern <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">Coastal · Transitional · Japandi Fusion <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">Yohanna Mueller · Principal Designer <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">San Francisco's Definitive Luxury Interior Design <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">Perfection Is Not A Goal — It Is The Prerequisite <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">Quiet Luxury · Intentional Beauty · Absolute Mastery <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">Refined Organic Coastal Modern <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">Coastal · Transitional · Japandi Fusion <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">Yohanna Mueller · Principal Designer <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">San Francisco's Definitive Luxury Interior Design <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">Perfection Is Not A Goal — It Is The Prerequisite <span class="marquee-sep">◆</span></span>
+    <span class="marquee-item">Quiet Luxury · Intentional Beauty · Absolute Mastery <span class="marquee-sep">◆</span></span>
+  </div>
+</div>
 
-  <!-- Lifestyle Banner -->
-  <section class="banner-section">
-    <div class="banner-image">
-      <img data-cms="photo-lifestyle" src="https://placehold.co/1216x832/e8e0d8/8a7968?text=Lifestyle+Banner" alt="Design process at the studio" loading="lazy">
-    </div>
-  </section>
-
-  <!-- Services -->
-  <section class="section services" id="services">
-    <div class="container">
-      <p class="section-label center">What We Do</p>
-      <h2 class="section-title center">Our Services</h2>
-      <div class="services-grid">
-        <div class="service-card">
-          <div class="service-icon">&#9670;</div>
-          <h3>Full-Service Design</h3>
-          <p>From concept to completion — space planning, material selection, custom furnishings, and project management for a seamless transformation.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">&#9670;</div>
-          <h3>Design Consultation</h3>
-          <p>A focused session to define your vision, establish direction, and create a roadmap for your space with actionable next steps.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">&#9670;</div>
-          <h3>Styling &amp; Staging</h3>
-          <p>Curated styling that elevates your space for everyday living or prepares your home to make an unforgettable first impression.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">&#9670;</div>
-          <h3>Renovation Guidance</h3>
-          <p>Expert direction on finishes, fixtures, and layouts so your renovation reflects intentional design at every turn.</p>
-        </div>
+<!-- DESIGNER INTRODUCTION -->
+<section class="designer-intro">
+  <div class="designer-intro-inner">
+    <div class="intro-photo-frame" data-reveal="left">
+      <div class="intro-photo-border">
+        <img class="intro-photo" data-cms="photo-intro" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80" alt="Yohanna Mueller">
       </div>
     </div>
-  </section>
-
-  <!-- Editorial Portrait -->
-  <section class="section philosophy" id="philosophy">
-    <div class="container philosophy-grid">
-      <div class="philosophy-text">
-        <p class="section-label">Our Philosophy</p>
-        <h2 class="section-title">Design With Soul</h2>
-        <p>We believe that great design isn't just about aesthetics — it's about how a space makes you feel the moment you walk in.</p>
-        <p>Every texture, every tone, every carefully chosen piece serves a purpose: to create an environment where you feel grounded, inspired, and truly at home.</p>
-        <p>Sable &amp; Brass Interiors draws from the organic beauty of coastal landscapes — the play of light on water, the warmth of sun-bleached wood, the quiet elegance of natural stone — and translates that feeling into interiors that are both refined and effortlessly inviting.</p>
-      </div>
-      <div class="philosophy-image">
-        <img data-cms="photo-editorial" src="https://placehold.co/768x1024/d4cbc0/8a7968?text=Editorial+Portrait" alt="Yohanna Mueller editorial portrait" loading="lazy">
-      </div>
+    <div class="intro-content" data-reveal="right">
+      <span class="intro-eyebrow">Principal Designer &amp; Founder</span>
+      <h2 class="intro-name">Meet <em>Yohanna</em><br>Mueller</h2>
+      <p class="intro-text">
+        Munich-born. New York-forged. San Francisco's most uncompromising interior designer.
+        Yohanna brings fifteen years of singular vision to every space she transforms &mdash;
+        blending coastal serenity, transitional elegance, and Japandi restraint into something
+        entirely her own.
+      </p>
+      <a href="#profile" class="btn-ghost" style="font-size:10px;letter-spacing:.25em;padding:14px 36px;">Discover Her Story</a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Signature Banner -->
-  <section class="banner-section">
-    <div class="banner-image">
-      <img data-cms="photo-signature" src="https://placehold.co/1216x832/e8e0d8/8a7968?text=Signature+Banner" alt="Signature coastal interior by Sable & Brass" loading="lazy">
-    </div>
-  </section>
-
-  <!-- Testimonials -->
-  <section class="section testimonials" id="testimonials">
-    <div class="container">
-      <p class="section-label center">Kind Words</p>
-      <h2 class="section-title center">What Our Clients Say</h2>
-      <div class="testimonials-grid">
-        <div class="testimonial-card">
-          <p class="testimonial-quote">&ldquo;Yohanna transformed our beach house into something out of a magazine — but it still feels like home. She understood our vision before we could even articulate it.&rdquo;</p>
-          <p class="testimonial-author">— Sarah &amp; Michael T.</p>
-        </div>
-        <div class="testimonial-card">
-          <p class="testimonial-quote">&ldquo;Working with Sable &amp; Brass was an absolute dream. Every detail was considered, every choice intentional. Our home has never felt more like us.&rdquo;</p>
-          <p class="testimonial-author">— Jennifer L.</p>
-        </div>
-        <div class="testimonial-card">
-          <p class="testimonial-quote">&ldquo;The level of care and creativity Yohanna brings is unmatched. She has an incredible eye for blending comfort with elegance.&rdquo;</p>
-          <p class="testimonial-author">— David &amp; Karen R.</p>
-        </div>
+<!-- PHILOSOPHY -->
+<section class="philosophy">
+  <div class="philosophy-bg-ring"></div>
+  <div class="philosophy-grid">
+    <div style="text-align:center;">
+      <span class="section-eyebrow" data-reveal>The Sable & Brass Philosophy</span>
+      <h2 class="section-title light" data-reveal style="font-size:clamp(38px,6vw,72px);margin-bottom:40px;">
+        Most designers offer<br>a choice.
+      </h2>
+      <p class="philosophy-statement" data-reveal>
+        <span class="strike">Speed.</span> &nbsp;
+        <span class="strike">Quality.</span> &nbsp;
+        <span class="strike">Affordable.</span><br>
+        <em>Pick two.</em>
+      </p>
+      <div class="hero-divider" style="margin:44px auto;" data-reveal>
+        <div class="hdl"></div><div class="hdd"></div><div class="hdl r"></div>
       </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section class="section contact" id="contact">
-    <div class="container">
-      <p class="section-label center">Get In Touch</p>
-      <h2 class="section-title center">Let's Create Something Beautiful</h2>
-      <div class="contact-grid">
-        <div class="contact-info">
-          <div class="contact-item">
-            <h4>Email</h4>
-            <p data-cms="contact-email"><a href="mailto:hello@sableandbrassinteriors.com">hello@sableandbrassinteriors.com</a></p>
-          </div>
-          <div class="contact-item">
-            <h4>Phone</h4>
-            <p data-cms="contact-phone"><a href="tel:+1234567890">(123) 456-7890</a></p>
-          </div>
-          <div class="contact-item">
-            <h4>Location</h4>
-            <p data-cms="contact-location">Coastal California</p>
-          </div>
-        </div>
-        <form class="contact-form" id="contactForm">
-          <input type="text" name="name" placeholder="Your Name" required>
-          <input type="email" name="email" placeholder="Your Email" required>
-          <textarea name="message" placeholder="Tell us about your project..." rows="5" required></textarea>
-          <button type="submit" class="btn btn-primary">Send Message</button>
-        </form>
+      <p class="philosophy-rule" data-reveal>
+        At Sable &amp; Brass,<br>there is only <em>one option.</em>
+      </p>
+      <p class="philosophy-rule" data-reveal style="font-family:'Cormorant Garamond',serif;font-size:clamp(52px,9vw,110px);color:var(--brass);font-style:italic;font-weight:300;letter-spacing:.04em;line-height:1;margin-bottom:32px;">
+        Perfection.
+      </p>
+      <p class="philosophy-sub" data-reveal>
+        For those who have built an extraordinary life<br>
+        and will not settle for an ordinary home.<br>
+        For those who understand that true luxury<br>
+        is not purchased — it is curated, with intention.
+      </p>
+      <div class="brass-quote-block" style="max-width:700px;margin:48px auto 0;" data-reveal>
+        <blockquote>"We don't compete on price. We compete on outcomes. And our outcomes are incomparable."</blockquote>
+        <cite>— Yohanna Mueller, Principal Designer</cite>
       </div>
     </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container footer-inner">
-      <p class="footer-logo">Sable &amp; Brass</p>
-      <p class="footer-copy">&copy; 2026 Sable &amp; Brass Interiors. All rights reserved.</p>
+    <div class="philosophy-photo-frame" data-reveal="right">
+      <div class="philosophy-photo-border">
+        <img class="philosophy-photo" data-cms="photo-editorial" src="https://images.unsplash.com/photo-1589571894960-20bbe2828d0a?w=600&q=80" alt="Yohanna Mueller — Editorial Portrait">
+      </div>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <script src="cms-inject.js"></script>
-  <script>
-    // Mobile nav toggle
-    const navToggle = document.getElementById('navToggle');
-    const navLinks = document.getElementById('navLinks');
-    navToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-      navToggle.classList.toggle('open');
-    });
+<!-- TRIANGLE -->
+<section class="triangle-section">
+  <div class="triangle-inner">
+    <div data-reveal="left">
+      <span class="section-eyebrow">Why We Are Different</span>
+      <h2 class="section-title">The standard <em>triangle</em> — shattered.</h2>
+      <p class="body-text" style="margin-bottom:20px;">
+        Every other design firm forces a compromise. Choose fast turnaround — sacrifice quality.
+        Choose budget-friendly — sacrifice excellence. This is the triangle every client has
+        been conditioned to accept.
+      </p>
+      <p class="body-text" style="margin-bottom:36px;">
+        We built Sable & Brass to obliterate that compromise. Our atelier operates at the precise
+        intersection of flawless craftsmanship, curated trade relationships, and Yohanna's
+        irreplaceable singular vision — delivering results that simply cannot be compared.
+      </p>
+      <p class="body-text" style="font-style:italic;color:var(--taupe);">
+        This is not a claim. It is a promise backed by fifteen years of incomparable work
+        and a client retention rate of 100%.
+      </p>
+    </div>
+    <div class="triangle-svg-wrap" data-reveal="right">
+      <svg viewBox="0 0 440 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Faded standard triangle -->
+        <polygon points="220,28 44,340 396,340" stroke="#b0a390" stroke-width="1" stroke-dasharray="6,5" opacity=".4"/>
+        <text x="220" y="18" text-anchor="middle" fill="#7a6b59" font-family="Jost,sans-serif" font-size="10" letter-spacing="4" opacity=".7">QUALITY</text>
+        <text x="22" y="358" text-anchor="middle" fill="#7a6b59" font-family="Jost,sans-serif" font-size="10" letter-spacing="4" opacity=".7">SPEED</text>
+        <text x="416" y="358" text-anchor="middle" fill="#7a6b59" font-family="Jost,sans-serif" font-size="10" letter-spacing="4" opacity=".7">CHEAP</text>
+        <text x="220" y="235" text-anchor="middle" fill="#7a6b59" font-family="Cormorant Garamond,serif" font-size="13" font-style="italic" opacity=".5">Others: choose two</text>
+        <!-- Central medallion -->
+        <circle cx="220" cy="192" r="88" fill="#110e0b" stroke="#b89230" stroke-width="1.5"/>
+        <circle cx="220" cy="192" r="72" fill="none" stroke="rgba(184,146,48,.25)" stroke-width="1"/>
+        <polygon points="220,120 292,192 220,264 148,192" fill="none" stroke="rgba(184,146,48,.4)" stroke-width="1"/>
+        <!-- Sable & Brass text -->
+        <text x="220" y="176" text-anchor="middle" fill="#b89230" font-family="Cormorant Garamond,serif" font-size="13" letter-spacing="3">SABLE &amp;</text>
+        <text x="220" y="196" text-anchor="middle" fill="#b89230" font-family="Cormorant Garamond,serif" font-size="13" letter-spacing="3">BRASS</text>
+        <text x="220" y="222" text-anchor="middle" fill="#cda83d" font-family="Cormorant Garamond,serif" font-size="16" font-style="italic">Perfection</text>
+        <!-- Radiating lines -->
+        <line x1="220" y1="104" x2="220" y2="28" stroke="rgba(184,146,48,.2)" stroke-width="1"/>
+        <line x1="220" y1="280" x2="220" y2="340" stroke="rgba(184,146,48,.2)" stroke-width="1"/>
+        <line x1="136" y1="192" x2="44" y2="340" stroke="rgba(184,146,48,.2)" stroke-width="1"/>
+        <line x1="304" y1="192" x2="396" y2="340" stroke="rgba(184,146,48,.2)" stroke-width="1"/>
+      </svg>
+    </div>
+  </div>
+</section>
 
-    // Sticky nav on scroll
-    const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 60);
-    });
+<!-- LIFESTYLE BANNER -->
+<section class="lifestyle-banner">
+  <img class="lifestyle-img" data-cms="photo-lifestyle" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1400&q=80" alt="Yohanna Mueller at work">
+  <div class="lifestyle-overlay">
+    <p class="lifestyle-quote" data-reveal>"Design is not what it <span>looks</span> like.<br>Design is how it makes you <span>feel</span>."</p>
+  </div>
+</section>
 
-    // Smooth scroll for nav links
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const target = document.querySelector(link.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          navLinks.classList.remove('open');
-          navToggle.classList.remove('open');
-        }
-      });
-    });
+<!-- SERVICES -->
+<section class="services">
+  <div class="services-header">
+    <span class="section-eyebrow" data-reveal>Our Services</span>
+    <h2 class="section-title" data-reveal>Every service.<br><em>One standard.</em></h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card" data-reveal>
+      <img class="service-img" src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=900&q=80" alt="Design Consulting">
+      <div class="service-overlay">
+        <div class="service-num">01 — Consulting</div>
+        <div class="service-name">Design<br>Consulting</div>
+        <div class="service-desc">Expert guidance by the hour. Decisive direction that transforms confusion into absolute clarity and costly uncertainty into confident, elegant decisions.</div>
+        <a href="consulting.html" class="service-link">Explore This Service</a>
+      </div>
+    </div>
+    <div class="service-card" data-reveal>
+      <img class="service-img" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=80" alt="Home Staging">
+      <div class="service-overlay">
+        <div class="service-num">02 — Staging</div>
+        <div class="service-name">Home<br>Staging</div>
+        <div class="service-desc">Buyers don't purchase houses — they purchase lives. Our staging creates the aspirational lifestyle buyers are reaching for, and they will pay a premium to possess it.</div>
+        <a href="staging.html" class="service-link">Explore This Service</a>
+      </div>
+    </div>
+    <div class="service-card" data-reveal>
+      <img class="service-img" src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=900&q=80" alt="Rental Makeover">
+      <div class="service-overlay">
+        <div class="service-num">03 — Rental</div>
+        <div class="service-name">Rental<br>Makeovers</div>
+        <div class="service-desc">Add 25–30% to your rental income with a complete furnished transformation. Premium tenants arrive. Premium rates follow. The ROI speaks for itself.</div>
+        <a href="rental.html" class="service-link">Explore This Service</a>
+      </div>
+    </div>
+    <div class="service-card" data-reveal>
+      <img class="service-img" src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=900&q=80" alt="Interior Design">
+      <div class="service-overlay">
+        <div class="service-num">04 — Design</div>
+        <div class="service-name">Interior<br>Design</div>
+        <div class="service-desc">Room by room or whole-home transformation. A complete design partnership from first concept to the final breathtaking reveal — every detail considered, every moment intentional.</div>
+        <a href="design.html" class="service-link">Explore This Service</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-    // Contact form handler
-    document.getElementById('contactForm').addEventListener('submit', e => {
-      e.preventDefault();
-      alert('Thank you for reaching out! We\'ll be in touch soon.');
-      e.target.reset();
-    });
-  </script>
+<!-- PORTFOLIO REEL -->
+<section class="reel" id="portfolio">
+  <div class="reel-header">
+    <span class="section-eyebrow" style="color:var(--brass)" data-reveal>Selected Works</span>
+    <h2 class="section-title light" data-reveal>The Sable &amp; Brass <em>Portfolio</em></h2>
+  </div>
+  <div class="reel-track">
+    <div class="reel-item">
+      <img src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=600&q=80" alt="Pacific Heights Living Room">
+      <div class="reel-caption"><p class="reel-caption-text">Pacific Heights · Living Room</p></div>
+    </div>
+    <div class="reel-item">
+      <img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=600&q=80" alt="Sea Cliff Primary Suite">
+      <div class="reel-caption"><p class="reel-caption-text">Sea Cliff · Primary Suite</p></div>
+    </div>
+    <div class="reel-item">
+      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="Noe Valley Kitchen">
+      <div class="reel-caption"><p class="reel-caption-text">Noe Valley · Kitchen</p></div>
+    </div>
+    <div class="reel-item">
+      <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=600&q=80" alt="Russian Hill Master Bath">
+      <div class="reel-caption"><p class="reel-caption-text">Russian Hill · Master Bath</p></div>
+    </div>
+    <div class="reel-item">
+      <img src="https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=600&q=80" alt="Presidio Heights Library">
+      <div class="reel-caption"><p class="reel-caption-text">Presidio Heights · Library</p></div>
+    </div>
+    <div class="reel-item">
+      <img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&q=80" alt="Marina District Dining">
+      <div class="reel-caption"><p class="reel-caption-text">Marina District · Dining Room</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- AESTHETIC DNA -->
+<section class="aesthetic">
+  <div class="aesthetic-inner">
+    <div class="aesthetic-header">
+      <span class="section-eyebrow" data-reveal>The Mueller Aesthetic</span>
+      <h2 class="section-title" data-reveal>A Signature Style,<br><em>Precisely Balanced</em></h2>
+      <p class="body-text" style="text-align:center;max-width:600px;margin:0 auto;" data-reveal>
+        Yohanna's design DNA is the result of years refining a singular aesthetic: the rare blend of
+        Coastal ease, Transitional elegance, and Japandi restraint — expressed as something entirely her own.
+      </p>
+    </div>
+    <div class="bars-grid">
+      <div class="bar-card" data-reveal>
+        <div class="bar-pct">38%</div>
+        <div class="bar-label">Coastal Influence</div>
+        <div class="bar-fill-track"><div class="bar-fill" style="width:0%" data-width="38%"></div></div>
+        <p class="bar-desc">Breezy relaxed atmosphere without kitsch. Light woods, woven fibers, linen upholstery, indoor–outdoor connection. Casual luxury at its most refined.</p>
+      </div>
+      <div class="bar-card" data-reveal>
+        <div class="bar-pct">38%</div>
+        <div class="bar-label">Transitional Anchor</div>
+        <div class="bar-fill-track"><div class="bar-fill" style="width:0%" data-width="38%"></div></div>
+        <p class="bar-desc">Architectural symmetry and balance. Classic elements simplified with modern lines. Neutral dominance with layered textures. Timeless, sophisticated, never dated.</p>
+      </div>
+      <div class="bar-card" data-reveal>
+        <div class="bar-pct">24%</div>
+        <div class="bar-label">Japandi Restraint</div>
+        <div class="bar-fill-track"><div class="bar-fill" style="width:0%" data-width="24%"></div></div>
+        <p class="bar-desc">Low-profile furniture, minimal ornamentation, organic shapes, negative space. Warm minimalism — not cold, not sparse — meditative, grounded, and deeply intentional.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIGNATURE BANNER -->
+<section class="signature-banner">
+  <img class="signature-img" data-cms="photo-signature" src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1400&q=80" alt="Yohanna Mueller in a completed space">
+  <div class="signature-overlay">
+    <h2 class="signature-text" data-reveal>Spaces that feel<br><em>profoundly right.</em></h2>
+    <p class="signature-sub" data-reveal>Every project. Every room. Every detail.</p>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="testimonials-header">
+    <span class="section-eyebrow" data-reveal>Client Voices</span>
+    <h2 class="section-title light" data-reveal>What our clients say</h2>
+  </div>
+  <div class="testi-grid" data-cms="testimonials">
+    <div class="testi-card" data-reveal>
+      <span class="testi-mark">"</span>
+      <p class="testi-text">Yohanna didn't just design our Pacific Heights home — she understood the life we wanted to live inside it. Every room is a perfect balance of calm and sophistication. We have hosted world-class guests who have been rendered speechless. Sable & Brass is in a category of one.</p>
+      <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="testi-name">Alexandra & James Whitmore</div>
+      <div class="testi-loc">Pacific Heights, San Francisco</div>
+    </div>
+    <div class="testi-card" data-reveal>
+      <span class="testi-mark">"</span>
+      <p class="testi-text">After staging our Noe Valley property with Yohanna, we received four offers over asking within the first weekend. Buyers didn't just want the house — they wanted the life she had created inside it. The ROI was extraordinary. She is simply in a league entirely her own.</p>
+      <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="testi-name">David Chen</div>
+      <div class="testi-loc">Real Estate Developer · Noe Valley</div>
+    </div>
+    <div class="testi-card" data-reveal>
+      <span class="testi-mark">"</span>
+      <p class="testi-text">Our rental property was performing averagely. Yohanna's team transformed it completely. Our new monthly rate is 32% higher and we're booked months in advance. The investment paid for itself inside a year. There are no words adequate for this level of talent and vision.</p>
+      <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="testi-name">Priya Mehta-Sandoval</div>
+      <div class="testi-loc">Rental Portfolio Owner · Marina District</div>
+    </div>
+    <div class="testi-card" data-reveal>
+      <span class="testi-mark">"</span>
+      <p class="testi-text">I have worked with designers in New York, London, and Milan. Yohanna Mueller is the only one who truly listened — who understood I didn't want a beautiful home, I wanted a sanctuary. She delivered something I didn't know was possible. I will never work with anyone else.</p>
+      <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="testi-name">Catherine Roux</div>
+      <div class="testi-loc">Founder & CEO · Pacific Union Capital</div>
+    </div>
+    <div class="testi-card" data-reveal>
+      <span class="testi-mark">"</span>
+      <p class="testi-text">The consulting session alone was worth its weight in gold. In two hours, Yohanna resolved problems we had lived with for years — with such elegant simplicity. The hourly rate seems significant until you realize it eliminates months of costly mistakes. Utterly transformational.</p>
+      <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="testi-name">Marcus & Elena Hoffmann</div>
+      <div class="testi-loc">Atherton, California</div>
+    </div>
+    <div class="testi-card" data-reveal>
+      <span class="testi-mark">"</span>
+      <p class="testi-text">Our whole-home makeover in Sea Cliff is the closest thing to perfection I have experienced in any domain of my life. Yohanna's aesthetic — that extraordinary blend of coastal serenity and Japandi restraint — is unlike anything you will find anywhere else. Forever grateful.</p>
+      <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="testi-name">Thomas & Ingrid Bergström</div>
+      <div class="testi-loc">Sea Cliff, San Francisco</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROFILE -->
+<section class="profile" id="profile">
+  <div class="profile-inner">
+    <div class="profile-frame" data-reveal="left">
+      <div class="profile-img-border">
+        <img class="profile-img" data-cms="headshot" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80" alt="Yohanna Mueller">
+      </div>
+      <div class="profile-medal">
+        <span class="profile-medal-num">15+</span>
+        <span class="profile-medal-label">Years of<br>Excellence</span>
+      </div>
+    </div>
+    <div class="profile-content" data-reveal="right">
+      <span class="section-eyebrow">Principal Designer</span>
+      <h2 class="profile-name" data-cms="bio-name">Yohanna<br>Mueller</h2>
+      <span class="profile-title-label">San Francisco · New York · International Projects</span>
+      <p class="body-text" data-cms="bio-p1" style="margin-bottom:18px;">
+        Born in Munich with a decade shaped by New York's most prestigious design houses, Yohanna Mueller
+        arrived in San Francisco with a singular vision: to create interiors that do not merely look
+        beautiful, but feel profoundly, unmistakably right.
+      </p>
+      <p class="body-text" data-cms="bio-p2" style="margin-bottom:18px;">
+        Her signature aesthetic — Refined Organic Coastal Modern — weaves together the breezy calm
+        of coastal living, the timeless balance of transitional architecture, and the meditative restraint
+        of Japandi minimalism. The result: spaces that feel simultaneously deeply luxurious and
+        immediately, organically at home.
+      </p>
+      <p class="body-text" data-cms="bio-p3">
+        Her creative lineage draws from Kelly Wearstler's sculptural warmth, Amber Lewis's textured
+        coastal sophistication, Axel Vervoordt's museum-like serenity, Nate Berkus's layered
+        elegance, and Vincent Van Duysen's architectural precision — all filtered through
+        Yohanna's irreplaceable personal vision.
+      </p>
+      <div class="profile-stats">
+        <div>
+          <div class="p-stat-num">200+</div>
+          <div class="p-stat-label">Projects</div>
+        </div>
+        <div>
+          <div class="p-stat-num">$50M+</div>
+          <div class="p-stat-label">Design Value</div>
+        </div>
+        <div>
+          <div class="p-stat-num">100%</div>
+          <div class="p-stat-label">Retention</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESIGNER INFLUENCES -->
+<section class="designers">
+  <div class="designers-header">
+    <span class="section-eyebrow" data-reveal>Design Influences</span>
+    <h2 class="section-title" data-reveal>The Aesthetic Lineage<br>of <em>Sable &amp; Brass</em></h2>
+    <p class="body-text" style="text-align:center;max-width:580px;margin:0 auto;" data-reveal>
+      Yohanna's sensibility is informed by the masters of quiet luxury — then transcended into something entirely, unmistakably her own.
+    </p>
+  </div>
+  <div class="designers-grid">
+    <div class="designer-card" data-reveal>
+      <div class="designer-name">Kelly<br>Wearstler</div>
+      <div class="designer-style">Sculptural · California · Organic</div>
+      <p class="designer-desc">Sculptural furniture, natural materials, and coastal California influence with transitional luxury and artistic minimalism.</p>
+    </div>
+    <div class="designer-card" data-reveal>
+      <div class="designer-name">Amber<br>Lewis</div>
+      <div class="designer-style">Organic · Coastal · Textural</div>
+      <p class="designer-desc">Organic modern layered with coastal warmth. Neutral palettes with deep texture. The gold standard of California sophistication.</p>
+    </div>
+    <div class="designer-card" data-reveal>
+      <div class="designer-name">Axel<br>Vervoordt</div>
+      <div class="designer-style">Wabi-Sabi · Minimalism · Calm</div>
+      <p class="designer-desc">Museum-like serenity, warm minimalism, and natural materials with profound Japandi-influenced restraint and depth.</p>
+    </div>
+    <div class="designer-card" data-reveal>
+      <div class="designer-name">Nate<br>Berkus</div>
+      <div class="designer-style">Transitional · Layered · Elegant</div>
+      <p class="designer-desc">Transitional foundation updated with modern clarity, layered neutrals, and approachable, deeply liveable elegance.</p>
+    </div>
+    <div class="designer-card" data-reveal>
+      <div class="designer-name">Vincent Van Duysen</div>
+      <div class="designer-style">Architectural · Warm · Precise</div>
+      <p class="designer-desc">Architectural minimalism suffused with warmth, craftsmanship-forward design, and an uncompromising spatial serenity.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INTAKE FORM -->
+<section class="intake" id="intake">
+  <div class="intake-inner">
+    <div class="intake-header">
+      <span class="section-eyebrow" data-reveal>Begin Your Journey</span>
+      <h2 class="section-title" style="color:var(--cream)" data-reveal>Client Intake Form</h2>
+      <div class="hero-divider" style="margin:28px auto 24px;max-width:280px;" data-reveal>
+        <div class="hdl"></div><div class="hdd"></div><div class="hdl r"></div>
+      </div>
+      <p class="intake-sub" data-reveal>Every extraordinary project begins with a conversation. Share your vision below and Yohanna will personally respond within 24 hours.</p>
+    </div>
+    <form class="intake-grid" id="intake-form" onsubmit="submitForm(event)" data-reveal>
+      <div class="field">
+        <label>First Name</label>
+        <input type="text" placeholder="Catherine" required>
+      </div>
+      <div class="field">
+        <label>Last Name</label>
+        <input type="text" placeholder="Roux" required>
+      </div>
+      <div class="field">
+        <label>Email Address</label>
+        <input type="email" placeholder="catherine@example.com" required>
+      </div>
+      <div class="field">
+        <label>Phone Number</label>
+        <input type="tel" placeholder="+1 (415) 000-0000">
+      </div>
+      <div class="field">
+        <label>Property Type</label>
+        <select>
+          <option value="">Select...</option>
+          <option>Single Family Home</option>
+          <option>Condominium / Apartment</option>
+          <option>Penthouse</option>
+          <option>Investment / Rental Property</option>
+          <option>Vacation Home</option>
+          <option>Multiple Properties</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Service of Interest</label>
+        <select>
+          <option value="">Select...</option>
+          <option>Design Consulting (Hourly)</option>
+          <option>Home Staging for Sale</option>
+          <option>Furnished Rental Makeover</option>
+          <option>Interior Design — Room by Room</option>
+          <option>Interior Design — Whole Home</option>
+          <option>Multiple Services</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Approximate Investment</label>
+        <select>
+          <option value="">Select range...</option>
+          <option>$25,000 – $75,000</option>
+          <option>$75,000 – $150,000</option>
+          <option>$150,000 – $300,000</option>
+          <option>$300,000 – $500,000</option>
+          <option>$500,000+</option>
+          <option>Let's discuss</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Desired Timeline</label>
+        <select>
+          <option value="">Select...</option>
+          <option>Immediately</option>
+          <option>1–3 months</option>
+          <option>3–6 months</option>
+          <option>6–12 months</option>
+          <option>Planning ahead</option>
+        </select>
+      </div>
+      <div class="field full">
+        <label>Property Address / Neighborhood</label>
+        <input type="text" placeholder="Pacific Heights, San Francisco, CA">
+      </div>
+      <div class="field full">
+        <label>Tell Us About Your Vision</label>
+        <textarea placeholder="Describe your dream space, your lifestyle, what you love — and what you wish were different. The more you share, the more Yohanna can prepare for our conversation..."></textarea>
+      </div>
+      <div class="field full">
+        <label>How Did You Hear About Sable & Brass?</label>
+        <select>
+          <option value="">Select...</option>
+          <option>Client Referral</option>
+          <option>Real Estate Agent</option>
+          <option>Instagram / Social Media</option>
+          <option>Press / Editorial</option>
+          <option>Architectural Digest</option>
+          <option>Google Search</option>
+          <option>Attended an Event</option>
+        </select>
+      </div>
+      <div class="intake-footer">
+        <button type="submit" class="btn-brass" style="font-size:10.5px;"><span>Submit Your Inquiry</span></button>
+        <p class="intake-note">We accept a limited number of new clients each quarter to ensure<br>every project receives the full attention it deserves.</p>
+      </div>
+    </form>
+    <div class="submit-success" id="submit-success">
+      <div class="submit-success-icon">◆</div>
+      <h3>Thank You</h3>
+      <p>Your inquiry has been received. Yohanna will personally respond within 24 hours.<br>We look forward to beginning something extraordinary together.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand-name">Sable <em>&</em> Brass</div>
+      <div class="footer-brand-loc" data-cms="contact-location">Interior Design · San Francisco, California</div>
+    </div>
+    <ul class="footer-links-list">
+      <li><a href="consulting.html">Design Consulting</a></li>
+      <li><a href="staging.html">Home Staging</a></li>
+      <li><a href="rental.html">Rental Makeovers</a></li>
+      <li><a href="design.html">Interior Design</a></li>
+    </ul>
+    <div class="footer-contact">
+      <span class="footer-contact-email" data-cms="contact-email">hello@sableandbrass.com</span>
+      <div class="footer-contact-phone" data-cms="contact-phone">+1 (415) 555-0190</div>
+    </div>
+    <div class="footer-copy">© 2025 Sable & Brass · All Rights Reserved · San Francisco, California</div>
+  </div>
+</footer>
+
+<script>
+// Cursor
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cursor.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`;
+});
+(function animRing(){
+  rx+=(mx-rx)*.11;ry+=(my-ry)*.11;
+  cursorRing.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.classList.add('hovering');cursorRing.classList.add('hovering');});
+  el.addEventListener('mouseleave',()=>{cursor.classList.remove('hovering');cursorRing.classList.remove('hovering');});
+});
+
+// Nav scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('main-nav').classList.toggle('scrolled',scrollY>80);
+});
+
+// Scroll reveal
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('revealed');io.unobserve(e.target);}});
+},{threshold:.1});
+document.querySelectorAll('[data-reveal]').forEach((el,i)=>{
+  el.style.transitionDelay=(i%4)*.1+'s';
+  io.observe(el);
+});
+
+// Bar fills
+const bfIO=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.width=e.target.dataset.width;
+      bfIO.unobserve(e.target);
+    }
+  });
+},{threshold:.5});
+document.querySelectorAll('.bar-fill').forEach(el=>bfIO.observe(el));
+
+// Parallax
+const heroBg=document.querySelector('.hero-parallax');
+window.addEventListener('scroll',()=>{
+  if(heroBg) heroBg.style.transform=`translateY(${scrollY*.32}px)`;
+});
+
+// Form
+function submitForm(e){
+  e.preventDefault();
+  document.getElementById('intake-form').style.display='none';
+  document.getElementById('submit-success').style.display='block';
+}
+</script>
+<script src="/cms-inject.js"></script>
 </body>
 </html>

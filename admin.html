@@ -2,611 +2,591 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin — Sable &amp; Brass Interiors</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sable &amp; Brass &middot; Site Manager</title>
   <style>
     :root {
-      --cream: #FAF7F2;
-      --warm-white: #F5F0E8;
-      --sand: #E8E0D8;
-      --taupe: #C4B5A5;
-      --sable: #8A7968;
-      --charcoal: #3D3830;
-      --brass: #B8956A;
-      --brass-light: #D4B88C;
-      --dark: #2A2520;
-      --success: #6A9B6A;
-      --error: #C46B5E;
+      --sable:    #1a1814;
+      --sable-2:  #211f1b;
+      --sable-3:  #2a2722;
+      --brass:    #c9a96e;
+      --brass-lt: #dfc08a;
+      --cream:    #f5f0e8;
+      --cream-2:  #ede8de;
+      --stone:    #9e9b94;
+      --text:     #3d3a34;
     }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Raleway', sans-serif;
-      background: var(--cream);
-      color: var(--charcoal);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 14px;
+      background: var(--cream-2);
+      color: var(--text);
       min-height: 100vh;
     }
 
-    /* Login screen */
-    .login-screen {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, var(--dark), var(--charcoal));
+    /* ── Login ─────────────────────────────────────────────────── */
+    #login-wrap {
+      position: fixed; inset: 0;
+      background: var(--sable);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1000;
     }
-
-    .login-box {
-      background: var(--cream);
-      padding: 48px 40px;
-      width: 100%;
-      max-width: 400px;
-      text-align: center;
+    .login-card { width: 380px; padding: 52px 44px; text-align: center; }
+    .login-monogram {
+      width: 56px; height: 56px;
+      border: 1px solid var(--brass);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 28px;
+      font-family: Georgia, serif;
+      font-size: 20px; color: var(--brass); letter-spacing: .05em;
     }
-
-    .login-box h1 {
-      font-family: 'Playfair Display', serif;
-      font-weight: 400;
-      font-size: 1.8rem;
+    .login-logo {
+      font-family: Georgia, serif;
+      font-size: 24px; color: var(--cream);
+      letter-spacing: .14em; text-transform: uppercase;
       margin-bottom: 8px;
     }
-
-    .login-box p {
-      color: var(--sable);
-      font-size: 0.85rem;
-      margin-bottom: 32px;
+    .login-logo em { color: var(--brass); font-style: normal; }
+    .login-sub {
+      font-size: 10px; letter-spacing: .25em; text-transform: uppercase;
+      color: var(--stone); margin-bottom: 40px;
     }
-
-    .login-box input {
-      width: 100%;
-      padding: 14px 18px;
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.95rem;
-      border: 1px solid var(--sand);
-      background: var(--warm-white);
-      outline: none;
-      margin-bottom: 16px;
+    .login-divider { width: 36px; height: 1px; background: var(--brass); margin: 0 auto 40px; }
+    #pw-input {
+      width: 100%; padding: 14px 16px;
+      background: var(--sable-3); border: 1px solid #3a3730;
+      color: var(--cream); font-size: 14px; font-family: inherit;
+      letter-spacing: .04em; outline: none; margin-bottom: 14px;
+      transition: border-color .2s;
     }
-
-    .login-box input:focus { border-color: var(--brass); }
-
-    .login-box button {
-      width: 100%;
-      padding: 14px;
-      background: var(--brass);
-      color: var(--cream);
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      border: none;
-      cursor: pointer;
-      transition: background 0.3s;
+    #pw-input:focus { border-color: var(--brass); }
+    #pw-input::placeholder { color: var(--stone); }
+    .login-btn {
+      width: 100%; padding: 14px;
+      background: var(--brass); color: var(--sable); border: none;
+      cursor: pointer; font-size: 10px; letter-spacing: .22em;
+      text-transform: uppercase; transition: background .2s;
     }
+    .login-btn:hover { background: var(--brass-lt); }
+    #login-err { margin-top: 16px; font-size: 12px; color: #e07070; min-height: 18px; }
 
-    .login-box button:hover { background: var(--brass-light); color: var(--dark); }
-
-    .login-error {
-      color: var(--error);
-      font-size: 0.85rem;
-      margin-top: 12px;
-      display: none;
+    /* ── App ────────────────────────────────────────────────────── */
+    #app { display: none; }
+    .app-header {
+      background: var(--sable);
+      padding: 0 32px; height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+      border-bottom: 1px solid #2e2b26;
     }
-
-    /* Admin panel */
-    .admin-panel { display: none; }
-
-    .admin-header {
-      background: var(--dark);
-      padding: 20px 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .header-brand {
+      font-family: Georgia, serif;
+      font-size: 17px; color: var(--cream); letter-spacing: .12em;
     }
-
-    .admin-header h1 {
-      font-family: 'Playfair Display', serif;
-      font-weight: 400;
-      font-size: 1.3rem;
-      color: var(--cream);
+    .header-brand em { color: var(--brass); font-style: normal; }
+    .header-right { display: flex; align-items: center; gap: 20px; }
+    .header-link {
+      font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--stone); text-decoration: none; transition: color .2s;
     }
-
-    .admin-header button {
-      background: none;
-      border: 1px solid var(--sable);
-      color: var(--taupe);
-      padding: 8px 20px;
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.3s;
+    .header-link:hover { color: var(--brass); }
+    .logout-btn {
+      font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--stone); background: none;
+      border: 1px solid #3a3730; padding: 7px 16px;
+      cursor: pointer; transition: all .2s;
     }
+    .logout-btn:hover { color: var(--cream); border-color: var(--stone); }
 
-    .admin-header button:hover {
-      border-color: var(--brass);
-      color: var(--brass-light);
+    /* ── Content ────────────────────────────────────────────────── */
+    .content { max-width: 900px; margin: 0 auto; padding: 48px 32px 80px; }
+    .section-label {
+      font-size: 10px; letter-spacing: .3em; text-transform: uppercase;
+      color: var(--brass); margin-bottom: 8px;
     }
-
-    .admin-body {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 40px 24px 80px;
+    .section-heading {
+      font-family: Georgia, serif;
+      font-size: 26px; font-weight: 400; color: var(--sable);
+      margin-bottom: 6px;
     }
+    .section-desc { font-size: 13px; color: var(--stone); margin-bottom: 36px; line-height: 1.6; }
+    .divider { height: 1px; background: #d5cfc5; margin: 48px 0; }
 
-    .admin-section {
-      margin-bottom: 48px;
-    }
-
-    .admin-section h2 {
-      font-family: 'Playfair Display', serif;
-      font-weight: 400;
-      font-size: 1.5rem;
-      margin-bottom: 8px;
-    }
-
-    .admin-section > p {
-      color: var(--sable);
-      font-size: 0.85rem;
-      margin-bottom: 24px;
-    }
-
-    /* Photo cards */
+    /* ── Photo Card ─────────────────────────────────────────────── */
     .photo-card {
-      background: var(--warm-white);
-      border: 1px solid var(--sand);
-      padding: 28px;
-      margin-bottom: 24px;
+      background: #fff; border: 1px solid #d8d3c9;
+      margin-bottom: 24px; overflow: hidden;
     }
-
-    .photo-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-weight: 400;
-      font-size: 1.15rem;
-      margin-bottom: 4px;
+    .photo-card-header {
+      background: var(--sable-3); padding: 14px 20px;
+      display: flex; align-items: center; gap: 12px;
     }
-
-    .photo-card .photo-meta {
-      font-size: 0.8rem;
-      color: var(--sable);
-      margin-bottom: 16px;
-    }
-
-    .photo-card label {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--sable);
-      margin-bottom: 6px;
-    }
-
-    .photo-card input[type="text"] {
-      width: 100%;
-      padding: 12px 16px;
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.9rem;
-      border: 1px solid var(--sand);
-      background: var(--cream);
-      outline: none;
-      margin-bottom: 12px;
-    }
-
-    .photo-card input[type="text"]:focus { border-color: var(--brass); }
-
+    .photo-card-num { font-size: 10px; color: var(--brass); letter-spacing: .18em; }
+    .photo-card-name { font-size: 12px; color: var(--cream); letter-spacing: .14em; text-transform: uppercase; }
+    .photo-card-body { padding: 24px; }
+    .photo-row { display: grid; grid-template-columns: 160px 1fr; gap: 24px; align-items: start; }
     .photo-preview {
-      margin-top: 8px;
-      margin-bottom: 16px;
-      background: var(--sand);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      min-height: 120px;
+      width: 100%; aspect-ratio: 3/4;
+      object-fit: cover; border: 1px solid #d8d3c9;
+      background: var(--cream-2); display: block;
     }
-
-    .photo-preview img {
-      max-width: 100%;
-      max-height: 300px;
-      object-fit: contain;
+    .photo-preview.landscape { aspect-ratio: 16/9; }
+    .photo-preview.square { aspect-ratio: 1/1; }
+    .photo-meta { display: flex; flex-direction: column; gap: 12px; }
+    .field label {
+      display: block; font-size: 10px; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--stone); margin-bottom: 6px;
     }
-
-    .photo-preview .no-image {
-      color: var(--sable);
-      font-size: 0.85rem;
-      padding: 40px;
+    .field input, .field textarea {
+      width: 100%; padding: 11px 14px;
+      background: #fff; border: 1px solid #d8d3c9;
+      color: var(--text); font-size: 14px; font-family: inherit;
+      outline: none; transition: border-color .2s; resize: vertical;
     }
-
-    /* Qwen prompt */
-    .qwen-prompt {
-      margin-top: 12px;
+    .field input:focus, .field textarea:focus { border-color: var(--brass); }
+    .dim-badge {
+      display: inline-block;
+      background: var(--sable); color: var(--brass);
+      font-size: 11px; letter-spacing: .08em;
+      padding: 5px 12px; margin-bottom: 4px;
     }
+    .photo-desc { font-size: 12px; color: var(--stone); line-height: 1.6; margin-bottom: 8px; }
 
-    .qwen-toggle {
-      background: none;
-      border: none;
-      color: var(--brass);
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 1px;
-      cursor: pointer;
-      padding: 4px 0;
+    /* Qwen prompt box */
+    .prompt-wrap { position: relative; }
+    .prompt-box {
+      width: 100%; padding: 12px 14px;
+      background: var(--sable); color: var(--cream);
+      font-size: 12px; line-height: 1.7;
+      font-family: 'Courier New', monospace;
+      border: 1px solid #3a3730; resize: none;
+      min-height: 80px; outline: none;
     }
-
-    .qwen-toggle:hover { color: var(--brass-light); }
-
-    .qwen-text {
-      display: none;
-      margin-top: 8px;
-      padding: 16px;
-      background: var(--charcoal);
-      color: var(--sand);
-      font-size: 0.82rem;
-      line-height: 1.6;
-      position: relative;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
-    .qwen-text.show { display: block; }
-
+    .prompt-box:focus { border-color: var(--brass); }
     .copy-btn {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: var(--brass);
-      color: var(--cream);
-      border: none;
-      padding: 4px 12px;
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      cursor: pointer;
+      position: absolute; top: 8px; right: 8px;
+      background: var(--brass); color: var(--sable); border: none;
+      font-size: 9px; letter-spacing: .15em; text-transform: uppercase;
+      padding: 5px 10px; cursor: pointer; transition: background .2s;
     }
+    .copy-btn:hover { background: var(--brass-lt); }
 
-    .copy-btn:hover { background: var(--brass-light); color: var(--dark); }
+    /* ── Contact Fields ─────────────────────────────────────────── */
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
-    /* Contact fields */
-    .contact-fields {
-      background: var(--warm-white);
-      border: 1px solid var(--sand);
-      padding: 28px;
-    }
-
-    .contact-fields label {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--sable);
-      margin-bottom: 6px;
-      margin-top: 16px;
-    }
-
-    .contact-fields label:first-child { margin-top: 0; }
-
-    .contact-fields input {
-      width: 100%;
-      padding: 12px 16px;
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.9rem;
-      border: 1px solid var(--sand);
-      background: var(--cream);
-      outline: none;
-    }
-
-    .contact-fields input:focus { border-color: var(--brass); }
-
-    /* Save button */
+    /* ── Save Button ────────────────────────────────────────────── */
     .save-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: var(--dark);
+      position: sticky; bottom: 0;
+      background: var(--sable); border-top: 1px solid #2e2b26;
       padding: 16px 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
     }
-
-    .save-bar .status {
-      color: var(--taupe);
-      font-size: 0.85rem;
-    }
-
-    .save-bar .status.success { color: var(--success); }
-    .save-bar .status.error { color: var(--error); }
-
     .save-btn {
-      background: var(--brass);
-      color: var(--cream);
-      border: none;
-      padding: 14px 36px;
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.3s;
+      padding: 14px 48px;
+      background: var(--brass); color: var(--sable); border: none;
+      font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+      cursor: pointer; transition: background .2s;
     }
+    .save-btn:hover { background: var(--brass-lt); }
+    .save-btn:disabled { opacity: .45; cursor: default; }
+    .save-status { font-size: 12px; color: var(--stone); }
 
-    .save-btn:hover { background: var(--brass-light); color: var(--dark); }
-    .save-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    /* ── Toast ──────────────────────────────────────────────────── */
+    #toast {
+      position: fixed; bottom: 28px; right: 28px;
+      padding: 13px 22px; font-size: 13px; letter-spacing: .03em;
+      border-left: 3px solid;
+      opacity: 0; transform: translateY(8px);
+      transition: opacity .25s, transform .25s;
+      z-index: 9999; pointer-events: none;
+    }
+    #toast.show { opacity: 1; transform: translateY(0); }
+    #toast.ok  { background: #f0f8f3; color: #1a5c35; border-color: #3a9e60; }
+    #toast.err { background: #fdf0f0; color: #7a1a1a; border-color: #c0392b; }
 
-    @media (max-width: 600px) {
-      .admin-body { padding: 24px 16px 80px; }
-      .photo-card, .contact-fields { padding: 20px; }
+    /* ── Responsive ─────────────────────────────────────────────── */
+    @media (max-width: 680px) {
+      .content { padding: 28px 16px 80px; }
+      .photo-row { grid-template-columns: 1fr; }
+      .photo-preview { max-width: 200px; }
+      .field-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Login Screen -->
-  <div class="login-screen" id="loginScreen">
-    <div class="login-box">
-      <h1>Sable &amp; Brass</h1>
-      <p>Admin Panel</p>
-      <input type="password" id="passwordInput" placeholder="Enter password">
-      <button onclick="doLogin()">Sign In</button>
-      <p class="login-error" id="loginError">Invalid password. Please try again.</p>
-    </div>
+<!-- ── Login ─────────────────────────────────────────────────────── -->
+<div id="login-wrap">
+  <div class="login-card">
+    <div class="login-monogram">S&B</div>
+    <div class="login-logo">Sable <em>&amp;</em> Brass</div>
+    <div class="login-sub">Site Manager</div>
+    <div class="login-divider"></div>
+    <input id="pw-input" type="password" placeholder="Enter password" autocomplete="current-password">
+    <button class="login-btn" onclick="doLogin()">Access Dashboard</button>
+    <div id="login-err"></div>
   </div>
+</div>
 
-  <!-- Admin Panel -->
-  <div class="admin-panel" id="adminPanel">
-    <div class="admin-header">
-      <h1>Sable &amp; Brass — Admin</h1>
-      <button onclick="doLogout()">Sign Out</button>
+<!-- ── App ────────────────────────────────────────────────────────── -->
+<div id="app">
+  <header class="app-header">
+    <div class="header-brand">Sable <em>&amp;</em> Brass</div>
+    <div class="header-right">
+      <a href="/" target="_blank" class="header-link">View Site &rarr;</a>
+      <button class="logout-btn" onclick="doLogout()">Logout</button>
     </div>
+  </header>
 
-    <div class="admin-body">
+  <div class="content">
 
-      <!-- Photos Section -->
-      <div class="admin-section">
-        <h2>Site Photos</h2>
-        <p>Enter image URLs for each photo slot. Use the Qwen prompts to generate AI images with your LoRA model.</p>
+    <!-- ── PHOTOS ─────────────────────────────────────────────── -->
+    <div class="section-label">Photos</div>
+    <h2 class="section-heading">Photos &amp; Headshot</h2>
+    <p class="section-desc">Paste image URLs below. Each slot shows the recommended dimensions and a ready-to-use Qwen prompt. Generate with your LoRA, host the image, and paste the URL.</p>
 
-        <!-- Photo 1: Headshot -->
-        <div class="photo-card">
-          <h3>1. Headshot</h3>
-          <p class="photo-meta">Profile photo &mdash; 768 &times; 1024 px &mdash; 3:4 portrait</p>
-          <label for="photo-headshot">Image URL</label>
-          <input type="text" id="photo-headshot" data-section="headshot" placeholder="https://example.com/headshot.jpg">
-          <div class="photo-preview" id="preview-headshot"><span class="no-image">No image set</span></div>
-          <div class="qwen-prompt">
-            <button class="qwen-toggle" onclick="toggleQwen(this)">Show Qwen Prompt</button>
-            <div class="qwen-text">yohanna_mueller, professional headshot portrait, warm studio lighting, wearing cream silk blouse, soft smile, 85mm lens, shallow depth of field, neutral warm-toned backdrop, editorial beauty photography, high resolution, sharp focus on eyes<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
-          </div>
-        </div>
-
-        <!-- Photo 2: Meet the Designer -->
-        <div class="photo-card">
-          <h3>2. Meet the Designer</h3>
-          <p class="photo-meta">Intro section &mdash; 768 &times; 1024 px &mdash; 3:4 portrait</p>
-          <label for="photo-intro">Image URL</label>
-          <input type="text" id="photo-intro" data-section="photo-intro" placeholder="https://example.com/intro.jpg">
-          <div class="photo-preview" id="preview-photo-intro"><span class="no-image">No image set</span></div>
-          <div class="qwen-prompt">
-            <button class="qwen-toggle" onclick="toggleQwen(this)">Show Qwen Prompt</button>
-            <div class="qwen-text">yohanna_mueller, three-quarter length portrait, standing in coastal modern living room, wearing elegant black dress, one hand resting on linen sofa, natural window light from the left, white oak floors, soft earth-toned decor in background, editorial interior design photography, 50mm lens, warm color grading<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
-          </div>
-        </div>
-
-        <!-- Photo 3: Lifestyle Banner -->
-        <div class="photo-card">
-          <h3>3. Lifestyle Banner</h3>
-          <p class="photo-meta">Before services section &mdash; 1216 &times; 832 px &mdash; 3:2 landscape</p>
-          <label for="photo-lifestyle">Image URL</label>
-          <input type="text" id="photo-lifestyle" data-section="photo-lifestyle" placeholder="https://example.com/lifestyle.jpg">
-          <div class="photo-preview" id="preview-photo-lifestyle"><span class="no-image">No image set</span></div>
-          <div class="qwen-prompt">
-            <button class="qwen-toggle" onclick="toggleQwen(this)">Show Qwen Prompt</button>
-            <div class="qwen-text">yohanna_mueller, examining fabric swatches at large design table, wearing cream cashmere sweater, surrounded by material samples and mood boards, bright airy studio with floor-to-ceiling windows, wide angle 35mm lens, natural daylight, editorial lifestyle photography, warm earth tones, professional interior designer at work<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
-          </div>
-        </div>
-
-        <!-- Photo 4: Editorial Portrait -->
-        <div class="photo-card">
-          <h3>4. Editorial Portrait</h3>
-          <p class="photo-meta">Philosophy section &mdash; 768 &times; 1024 px &mdash; 3:4 portrait</p>
-          <label for="photo-editorial">Image URL</label>
-          <input type="text" id="photo-editorial" data-section="photo-editorial" placeholder="https://example.com/editorial.jpg">
-          <div class="photo-preview" id="preview-photo-editorial"><span class="no-image">No image set</span></div>
-          <div class="qwen-prompt">
-            <button class="qwen-toggle" onclick="toggleQwen(this)">Show Qwen Prompt</button>
-            <div class="qwen-text">yohanna_mueller, dramatic chiaroscuro portrait, wearing dark tailored blazer, standing by tall window with sheer curtains, moody directional light, cinematic atmosphere, deep shadows and warm highlights, 85mm lens, fine art portrait photography, thoughtful contemplative expression, dark background<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
-          </div>
-        </div>
-
-        <!-- Photo 5: Signature Banner -->
-        <div class="photo-card">
-          <h3>5. Signature Banner</h3>
-          <p class="photo-meta">Before testimonials &mdash; 1216 &times; 832 px &mdash; 3:2 landscape</p>
-          <label for="photo-signature">Image URL</label>
-          <input type="text" id="photo-signature" data-section="photo-signature" placeholder="https://example.com/signature.jpg">
-          <div class="photo-preview" id="preview-photo-signature"><span class="no-image">No image set</span></div>
-          <div class="qwen-prompt">
-            <button class="qwen-toggle" onclick="toggleQwen(this)">Show Qwen Prompt</button>
-            <div class="qwen-text">yohanna_mueller, environmental portrait in ocean-view coastal room, wearing white linen outfit, standing near open French doors with ocean visible, soft natural light flooding the space, airy minimalist interior with natural materials, wide shot 24mm lens, editorial architecture photography, serene and elegant atmosphere<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+    <!-- Photo 1: Headshot -->
+    <div class="photo-card">
+      <div class="photo-card-header">
+        <span class="photo-card-num">01</span>
+        <span class="photo-card-name">Headshot &mdash; Profile Section</span>
+      </div>
+      <div class="photo-card-body">
+        <div class="photo-row">
+          <img class="photo-preview" id="prev-headshot" src="" alt="Headshot preview">
+          <div class="photo-meta">
+            <span class="dim-badge">768 &times; 1024 px &nbsp;(3:4 portrait)</span>
+            <p class="photo-desc">Professional headshot used in the "Meet the Designer" profile section. Warm studio lighting, neutral background, shoulders-up framing.</p>
+            <div class="field">
+              <label>Image URL</label>
+              <input id="photo-headshot" type="url" placeholder="https://..." oninput="previewImg('headshot',this.value)">
+            </div>
+            <div class="field">
+              <label>Qwen Prompt</label>
+              <div class="prompt-wrap">
+                <textarea class="prompt-box" readonly>photo of yohanna_mueller, professional headshot portrait, elegant woman, warm smile, wearing cream silk blouse, soft golden hour studio lighting, shallow depth of field, neutral warm-toned background, shoulders and face framing, luxury editorial photography, shot on Canon EOS R5, 85mm f/1.4 lens, 8k quality</textarea>
+                <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Contact Section -->
-      <div class="admin-section">
-        <h2>Contact Information</h2>
-        <p>Update the contact details shown on the website.</p>
-        <div class="contact-fields">
-          <label for="contact-email">Email Address</label>
-          <input type="text" id="contact-email" data-section="contact-email" placeholder="hello@sableandbrassinteriors.com">
-          <label for="contact-phone">Phone Number</label>
-          <input type="text" id="contact-phone" data-section="contact-phone" placeholder="(123) 456-7890">
-          <label for="contact-location">Location</label>
-          <input type="text" id="contact-location" data-section="contact-location" placeholder="Coastal California">
+    <!-- Photo 2: Meet the Designer -->
+    <div class="photo-card">
+      <div class="photo-card-header">
+        <span class="photo-card-num">02</span>
+        <span class="photo-card-name">Meet the Designer &mdash; Introduction Section</span>
+      </div>
+      <div class="photo-card-body">
+        <div class="photo-row">
+          <img class="photo-preview" id="prev-intro" src="" alt="Intro preview">
+          <div class="photo-meta">
+            <span class="dim-badge">768 &times; 1024 px &nbsp;(3:4 portrait)</span>
+            <p class="photo-desc">Full-length or three-quarter portrait shown in the designer introduction section after the hero. Elegant pose, standing in a beautifully designed interior space.</p>
+            <div class="field">
+              <label>Image URL</label>
+              <input id="photo-intro" type="url" placeholder="https://..." oninput="previewImg('intro',this.value)">
+            </div>
+            <div class="field">
+              <label>Qwen Prompt</label>
+              <div class="prompt-wrap">
+                <textarea class="prompt-box" readonly>photo of yohanna_mueller, three-quarter length portrait, elegant woman standing in luxury coastal modern living room, wearing tailored black dress, one hand resting on marble console table, white oak floors, linen sofa and natural textures in background, soft diffused natural window light from the left, warm golden tones, editorial interior design photography, shot on Hasselblad X2D, 50mm lens, 8k quality</textarea>
+                <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
     </div>
 
-    <!-- Save Bar -->
-    <div class="save-bar">
-      <span class="status" id="saveStatus">Ready</span>
-      <button class="save-btn" id="saveBtn" onclick="saveAll()">Save All Changes</button>
+    <!-- Photo 3: Working/Lifestyle -->
+    <div class="photo-card">
+      <div class="photo-card-header">
+        <span class="photo-card-num">03</span>
+        <span class="photo-card-name">At Work &mdash; Lifestyle Banner</span>
+      </div>
+      <div class="photo-card-body">
+        <div class="photo-row">
+          <img class="photo-preview landscape" id="prev-lifestyle" src="" alt="Lifestyle preview">
+          <div class="photo-meta">
+            <span class="dim-badge">1216 &times; 832 px &nbsp;(3:2 landscape)</span>
+            <p class="photo-desc">Wide landscape shot of Yohanna working — examining fabric swatches, reviewing design boards, or consulting with a client. Captures the creative process in an aspirational setting.</p>
+            <div class="field">
+              <label>Image URL</label>
+              <input id="photo-lifestyle" type="url" placeholder="https://..." oninput="previewImg('lifestyle',this.value)">
+            </div>
+            <div class="field">
+              <label>Qwen Prompt</label>
+              <div class="prompt-wrap">
+                <textarea class="prompt-box" readonly>photo of yohanna_mueller, elegant woman examining luxury fabric swatches at a large white oak design table, marble and brass accents in the room, mood boards and material samples spread on table, wearing cream cashmere sweater, focused expression, bright airy design studio with floor-to-ceiling windows, soft natural daylight, warm neutral color palette, editorial lifestyle photography, wide angle composition, shot on Sony A7R V, 35mm f/1.8 lens, 8k quality</textarea>
+                <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- Photo 4: Philosophy/Editorial -->
+    <div class="photo-card">
+      <div class="photo-card-header">
+        <span class="photo-card-num">04</span>
+        <span class="photo-card-name">Editorial &mdash; Philosophy Section</span>
+      </div>
+      <div class="photo-card-body">
+        <div class="photo-row">
+          <img class="photo-preview" id="prev-editorial" src="" alt="Editorial preview">
+          <div class="photo-meta">
+            <span class="dim-badge">768 &times; 1024 px &nbsp;(3:4 portrait)</span>
+            <p class="photo-desc">Moody, contemplative portrait alongside the design philosophy quote. Dark/dramatic lighting, artistic composition. Think Vogue editorial meets architectural photography.</p>
+            <div class="field">
+              <label>Image URL</label>
+              <input id="photo-editorial" type="url" placeholder="https://..." oninput="previewImg('editorial',this.value)">
+            </div>
+            <div class="field">
+              <label>Qwen Prompt</label>
+              <div class="prompt-wrap">
+                <textarea class="prompt-box" readonly>photo of yohanna_mueller, dramatic editorial portrait, elegant woman in dark tailored blazer, standing by floor-to-ceiling window with city view, moody chiaroscuro lighting, strong shadows, looking pensively to the side, dark interior with brass and marble accents, desaturated warm tones, cinematic atmosphere, luxury fashion editorial style, shot on Leica SL2, 75mm Summilux lens, 8k quality</textarea>
+                <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Photo 5: Signature/Environmental -->
+    <div class="photo-card">
+      <div class="photo-card-header">
+        <span class="photo-card-num">05</span>
+        <span class="photo-card-name">Signature &mdash; Before Testimonials</span>
+      </div>
+      <div class="photo-card-body">
+        <div class="photo-row">
+          <img class="photo-preview landscape" id="prev-signature" src="" alt="Signature preview">
+          <div class="photo-meta">
+            <span class="dim-badge">1216 &times; 832 px &nbsp;(3:2 landscape)</span>
+            <p class="photo-desc">Environmental portrait — Yohanna in a completed project. Standing in a stunning coastal-modern room she designed, the space itself is a co-star. Conveys mastery and ownership of the craft.</p>
+            <div class="field">
+              <label>Image URL</label>
+              <input id="photo-signature" type="url" placeholder="https://..." oninput="previewImg('signature',this.value)">
+            </div>
+            <div class="field">
+              <label>Qwen Prompt</label>
+              <div class="prompt-wrap">
+                <textarea class="prompt-box" readonly>photo of yohanna_mueller, environmental portrait, elegant woman standing in stunning coastal modern living room, wearing flowing white linen outfit, large ocean-view windows behind her, room features low-profile japandi furniture with woven textures and organic shapes, white oak built-in shelving, warm afternoon golden light streaming through windows, wide composition showing both designer and the beautiful space, luxury architectural photography, shot on Phase One IQ4, 45mm lens, 8k quality</textarea>
+                <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ── CONTACT INFO ───────────────────────────────────────── -->
+    <div class="section-label">Information</div>
+    <h2 class="section-heading">Contact Information</h2>
+    <p class="section-desc">Update the email and phone number displayed in the website footer across all pages.</p>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Email Address</label>
+        <input id="contact-email" type="email" placeholder="hello@sableandbrass.com">
+      </div>
+      <div class="field">
+        <label>Phone Number</label>
+        <input id="contact-phone" type="tel" placeholder="+1 (415) 555-0190">
+      </div>
+    </div>
+    <div class="field" style="margin-top:16px">
+      <label>Location</label>
+      <input id="contact-location" type="text" placeholder="San Francisco, California">
+    </div>
+
+  </div><!-- .content -->
+
+  <!-- ── Sticky Save Bar ──────────────────────────────────────── -->
+  <div class="save-bar">
+    <span class="save-status" id="save-status"></span>
+    <button class="save-btn" onclick="saveAll()">Save All Changes</button>
   </div>
+</div>
 
-  <script>
-    const API_URL = '/api/cms';
-    let authToken = '';
+<div id="toast"></div>
 
-    // --- Login ---
-    function doLogin() {
-      const pw = document.getElementById('passwordInput').value;
-      if (!pw.trim()) return;
-      authToken = pw;
-      // Verify by trying to load data
-      fetch(API_URL, {
-        headers: { 'Authorization': 'Bearer ' + authToken }
-      })
-      .then(r => {
-        if (r.ok) {
-          document.getElementById('loginScreen').style.display = 'none';
-          document.getElementById('adminPanel').style.display = 'block';
-          loadData();
-        } else {
-          document.getElementById('loginError').style.display = 'block';
-        }
-      })
-      .catch(() => {
-        // If API not available (local dev), allow login anyway
-        document.getElementById('loginScreen').style.display = 'none';
-        document.getElementById('adminPanel').style.display = 'block';
-      });
-    }
+<script>
+const API = '/api/cms';
+let TOKEN = '';
 
-    function doLogout() {
-      authToken = '';
-      document.getElementById('adminPanel').style.display = 'none';
-      document.getElementById('loginScreen').style.display = 'flex';
-      document.getElementById('passwordInput').value = '';
-      document.getElementById('loginError').style.display = 'none';
-    }
+/* ── Utilities ───────────────────────────────────────────────────── */
+function toast(msg, type = 'ok') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'show ' + type;
+  clearTimeout(el._t);
+  el._t = setTimeout(() => { el.className = ''; }, 3400);
+}
+function val(id)    { return (document.getElementById(id)?.value || '').trim(); }
+function set(id, v) { const el = document.getElementById(id); if (el) el.value = v ?? ''; }
 
-    // Enter key on password field
-    document.getElementById('passwordInput').addEventListener('keydown', e => {
-      if (e.key === 'Enter') doLogin();
+async function post(section, data) {
+  const res = await fetch(API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + TOKEN },
+    body: JSON.stringify({ section, data })
+  });
+  if (!res.ok) {
+    const json = await res.json().catch(() => ({}));
+    throw new Error(json.error || 'HTTP ' + res.status);
+  }
+  return res.json();
+}
+
+/* ── Login ────────────────────────────────────────────────────────── */
+function doLogin() {
+  const pw = (document.getElementById('pw-input').value || '').trim();
+  const errEl = document.getElementById('login-err');
+  if (!pw) { errEl.textContent = 'Please enter the password.'; return; }
+  errEl.textContent = 'Verifying\u2026';
+
+  fetch(API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + pw },
+    body: JSON.stringify({ section: '_verify', data: null })
+  }).then(res => {
+    if (!res.ok) throw new Error('bad');
+    TOKEN = pw;
+    sessionStorage.setItem('sb_token', pw);
+    showDashboard();
+  }).catch(() => {
+    errEl.textContent = 'Incorrect password. Try again.';
+    TOKEN = '';
+  });
+}
+
+function doLogout() {
+  sessionStorage.removeItem('sb_token');
+  TOKEN = '';
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('login-wrap').style.display = 'flex';
+  document.getElementById('pw-input').value = '';
+}
+
+document.getElementById('pw-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+
+/* ── Dashboard ────────────────────────────────────────────────────── */
+async function showDashboard() {
+  document.getElementById('login-wrap').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  await loadContent();
+}
+
+async function loadContent() {
+  try {
+    const res = await fetch(API);
+    const cms = await res.json();
+    populateForms(cms);
+  } catch (_) {
+    toast('Could not load content.', 'err');
+  }
+}
+
+function populateForms(cms) {
+  // Headshot (from bio section)
+  set('photo-headshot', cms.bio?.headshotUrl);
+  previewImg('headshot', cms.bio?.headshotUrl || '');
+
+  // Site photos
+  const ph = cms.photos || {};
+  set('photo-intro',      ph.intro);
+  set('photo-lifestyle',  ph.lifestyle);
+  set('photo-editorial',  ph.editorial);
+  set('photo-signature',  ph.signature);
+  previewImg('intro',     ph.intro || '');
+  previewImg('lifestyle', ph.lifestyle || '');
+  previewImg('editorial', ph.editorial || '');
+  previewImg('signature', ph.signature || '');
+
+  // Contact
+  set('contact-email',    cms.contact?.email);
+  set('contact-phone',    cms.contact?.phone);
+  set('contact-location', cms.contact?.location);
+}
+
+/* ── Preview images ───────────────────────────────────────────────── */
+function previewImg(key, url) {
+  const img = document.getElementById('prev-' + key);
+  if (!img) return;
+  if (url && (url.startsWith('http') || url.startsWith('/'))) {
+    img.src = url;
+    img.style.opacity = '1';
+  } else {
+    img.src = '';
+    img.style.opacity = '.3';
+  }
+}
+
+/* ── Copy prompt ──────────────────────────────────────────────────── */
+function copyPrompt(btn) {
+  const box = btn.closest('.prompt-wrap').querySelector('.prompt-box');
+  navigator.clipboard.writeText(box.value).then(() => {
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = 'Copy'; }, 1500);
+  });
+}
+
+/* ── Save all ─────────────────────────────────────────────────────── */
+async function saveAll() {
+  const status = document.getElementById('save-status');
+  status.textContent = 'Saving\u2026';
+
+  try {
+    // Load existing data to preserve fields we don't edit here
+    const existing = await fetch(API).then(r => r.json());
+
+    // Save bio (only update headshot URL, preserve text fields)
+    await post('bio', {
+      headshotUrl: val('photo-headshot'),
+      firstName:   existing.bio?.firstName || 'Yohanna',
+      lastName:    existing.bio?.lastName || 'Mueller',
+      p1: existing.bio?.p1 || '',
+      p2: existing.bio?.p2 || '',
+      p3: existing.bio?.p3 || ''
     });
 
-    // --- Load data from CMS ---
-    function loadData() {
-      fetch(API_URL, {
-        headers: { 'Authorization': 'Bearer ' + authToken }
-      })
-      .then(r => r.ok ? r.json() : {})
-      .then(data => {
-        if (!data) return;
-        // Fill in all fields
-        document.querySelectorAll('[data-section]').forEach(input => {
-          const key = input.getAttribute('data-section');
-          if (data[key]) {
-            input.value = data[key];
-            updatePreview(key, data[key]);
-          }
-        });
-      })
-      .catch(() => {});
-    }
-
-    // --- Preview updates ---
-    function updatePreview(section, url) {
-      const previewEl = document.getElementById('preview-' + section);
-      if (!previewEl) return;
-      if (url && url.trim()) {
-        previewEl.innerHTML = '<img src="' + url + '" alt="Preview" onerror="this.parentElement.innerHTML=\'<span class=no-image>Failed to load image</span>\'">';
-      } else {
-        previewEl.innerHTML = '<span class="no-image">No image set</span>';
-      }
-    }
-
-    // Live preview on input
-    document.querySelectorAll('.photo-card input[type="text"]').forEach(input => {
-      input.addEventListener('input', () => {
-        const section = input.getAttribute('data-section');
-        updatePreview(section, input.value);
-      });
+    // Save photos
+    await post('photos', {
+      intro:      val('photo-intro'),
+      lifestyle:  val('photo-lifestyle'),
+      editorial:  val('photo-editorial'),
+      signature:  val('photo-signature')
     });
 
-    // --- Save all ---
-    function saveAll() {
-      const btn = document.getElementById('saveBtn');
-      const status = document.getElementById('saveStatus');
-      btn.disabled = true;
-      status.textContent = 'Saving...';
-      status.className = 'status';
+    // Save contact
+    await post('contact', {
+      email:    val('contact-email'),
+      phone:    val('contact-phone'),
+      location: val('contact-location')
+    });
 
-      const payload = {};
-      document.querySelectorAll('[data-section]').forEach(input => {
-        const key = input.getAttribute('data-section');
-        if (input.value.trim()) {
-          payload[key] = input.value.trim();
-        }
-      });
+    status.textContent = '';
+    toast('All changes saved successfully.');
+  } catch (e) {
+    status.textContent = '';
+    toast(e.message, 'err');
+  }
+}
 
-      fetch(API_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + authToken
-        },
-        body: JSON.stringify(payload)
-      })
-      .then(r => {
-        if (r.ok) {
-          status.textContent = 'Saved successfully!';
-          status.className = 'status success';
-        } else {
-          throw new Error('Save failed');
-        }
-      })
-      .catch(() => {
-        status.textContent = 'Error saving. Check your connection.';
-        status.className = 'status error';
-      })
-      .finally(() => {
-        btn.disabled = false;
-        setTimeout(() => {
-          status.textContent = 'Ready';
-          status.className = 'status';
-        }, 3000);
-      });
-    }
-
-    // --- Qwen prompt helpers ---
-    function toggleQwen(btn) {
-      const text = btn.nextElementSibling;
-      text.classList.toggle('show');
-      btn.textContent = text.classList.contains('show') ? 'Hide Qwen Prompt' : 'Show Qwen Prompt';
-    }
-
-    function copyPrompt(btn) {
-      const text = btn.parentElement.textContent.replace('Copy', '').trim();
-      navigator.clipboard.writeText(text).then(() => {
-        btn.textContent = 'Copied!';
-        setTimeout(() => { btn.textContent = 'Copy'; }, 1500);
-      });
-    }
-  </script>
+/* ── Auto-restore session ─────────────────────────────────────────── */
+const saved = sessionStorage.getItem('sb_token');
+if (saved) { TOKEN = saved; showDashboard(); }
+</script>
 </body>
 </html>

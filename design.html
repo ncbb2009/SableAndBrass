@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interior Design — Sable & Brass · San Francisco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared-service.css">
+<style>
+.gallery{padding:80px;background:var(--cream-2);}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:280px;gap:3px;max-width:1400px;margin:60px auto 0;}
+.g-item{overflow:hidden;position:relative;}
+.g-item.wide{grid-column:span 2;}
+.g-item.tall{grid-row:span 2;}
+.g-item img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease;filter:saturate(.82);}
+.g-item:hover img{transform:scale(1.05);filter:saturate(1);}
+@media(max-width:900px){.gallery-grid{grid-template-columns:1fr 1fr;} .g-item.wide{grid-column:span 1;} .g-item.tall{grid-row:span 1;}}
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<nav id="main-nav">
+  <a href="index.html" class="nav-brand">
+    <span class="nav-brand-name">Sable <span>&</span> Brass</span>
+    <div class="nav-brand-line"></div>
+    <span class="nav-brand-sub">Interior Design · San Francisco</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="consulting.html">Consulting</a></li>
+    <li><a href="staging.html">Staging</a></li>
+    <li><a href="rental.html">Rental Makeovers</a></li>
+    <li><a href="design.html" style="color:var(--brass)">Interior Design</a></li>
+  </ul>
+  <a href="index.html#intake" class="nav-cta"><span>Begin Your Journey</span></a>
+</nav>
+
+<div style="padding-top:80px;">
+<section class="svc-hero">
+  <img class="svc-hero-img" src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1800&q=80" alt="Interior Design">
+  <div class="svc-hero-grad"></div>
+  <div class="svc-hero-content">
+    <span class="svc-num">Service 04 of 04</span>
+    <h1 class="svc-title">Interior<br>Design</h1>
+    <p class="svc-sub">Room by room or whole home. Every detail. Every moment. Perfect.</p>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section style="background:var(--sable-2);padding:80px;text-align:center;">
+  <div style="max-width:840px;margin:0 auto;">
+    <span class="section-eyebrow" data-reveal>The Full Design Experience</span>
+    <h2 class="section-title light" data-reveal>This is where <em>perfection</em> lives.</h2>
+    <p class="body-text light" style="margin-top:20px;" data-reveal>Our full interior design service is the complete expression of the Sable & Brass standard. From the first creative conversation to the final breathtaking reveal, Yohanna is your creative director, project manager, and most trusted advisor. You make decisions. We make them happen — with absolute, uncompromising mastery.</p>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-band">
+  <div class="stat-item" data-reveal>
+    <div class="stat-num">200+</div>
+    <div class="stat-label">Completed Projects</div>
+  </div>
+  <div class="stat-item" data-reveal>
+    <div class="stat-num">$50M+</div>
+    <div class="stat-label">Total Design Value</div>
+  </div>
+  <div class="stat-item" data-reveal>
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Client Retention Rate</div>
+  </div>
+  <div class="stat-item" data-reveal>
+    <div class="stat-num">15+</div>
+    <div class="stat-label">Years of Mastery</div>
+  </div>
+</div>
+
+<!-- JOURNEY - The 8-Step Process -->
+<section class="journey">
+  <div class="journey-inner">
+    <span class="section-eyebrow" data-reveal>The Design Process</span>
+    <h2 class="section-title" data-reveal>Your Complete <em>Design Journey</em></h2>
+    <p class="body-text" style="max-width:680px;" data-reveal>An eight-step partnership built on the industry's highest standards — refined over fifteen years and hundreds of projects into a process that makes the extraordinary feel inevitable.</p>
+    <div class="journey-steps">
+      <div class="step" data-reveal>
+        <div class="step-num">01</div>
+        <h3 class="step-title">Discovery Call</h3>
+        <p class="step-desc">A personal conversation with Yohanna to explore your vision, lifestyle, aesthetic instincts, and what your ideal home feels like to live in. This is not an interview — it is a creative collaboration.</p>
+      </div>
+      <div class="step" data-reveal>
+        <div class="step-num">02</div>
+        <h3 class="step-title">Site Assessment</h3>
+        <p class="step-desc">Yohanna visits your property for an immersive walkthrough — measuring, photographing, studying light conditions, architectural features, and listening to the story the space is trying to tell.</p>
+      </div>
+      <div class="step" data-reveal>
+        <div class="step-num">03</div>
+        <h3 class="step-title">Concept Direction</h3>
+        <p class="step-desc">We present a curated concept board, color palette, material direction, and spatial vision. This is where creative direction is set and refined collaboratively — the foundation for everything that follows.</p>
+      </div>
+      <div class="step" data-reveal>
+        <div class="step-num">04</div>
+        <h3 class="step-title">Design Development</h3>
+        <p class="step-desc">Full room plans, furniture selections, custom millwork specifications, lighting design, material samples, and a detailed investment summary. Every decision documented and presented with complete transparency.</p>
+      </div>
+      <div class="step" data-reveal>
+        <div class="step-num">05</div>
+        <h3 class="step-title">Client Approval</h3>
+        <p class="step-desc">You review, revise, and approve the complete design. Nothing moves forward without your full confidence. We don't proceed until the plan reflects your vision — perfected and exactly right.</p>
+      </div>
+      <div class="step" data-reveal>
+        <div class="step-num">06</div>
+        <h3 class="step-title">Procurement</h3>
+        <p class="step-desc">All purchasing managed through our trade accounts. Custom pieces commissioned. Imported items coordinated. Lead times tracked with absolute precision so every element arrives when it needs to.</p>
+      </div>
+      <div class="step" data-reveal>
+        <div class="step-num">07</div>
+        <h3 class="step-title">Project Management</h3>
+        <p class="step-desc">Where construction or renovation is involved, Yohanna works in direct collaboration with your contractors — reviewing work, approving materials on-site, ensuring every trade adheres precisely to the design intent.</p>
+      </div>
+      <div class="step" data-reveal>
+        <div class="step-num">08</div>
+        <h3 class="step-title">The Reveal</h3>
+        <p class="step-desc">You see your completed home for the first time. The gasp. The quiet. The overwhelming sense of rightness. This moment — this specific, unrepeatable experience — is what Yohanna designs toward in every single project.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROOM TYPES -->
+<section style="background:var(--sable);padding:100px 80px;">
+  <div style="max-width:1360px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:72px;">
+      <span class="section-eyebrow" data-reveal>Areas We Transform</span>
+      <h2 class="section-title light" data-reveal>Every room.<br><em>Every detail.</em></h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:3px;">
+      <div style="position:relative;overflow:hidden;aspect-ratio:3/4;" data-reveal>
+        <img src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=500&q=80" alt="Living Room" style="width:100%;height:100%;object-fit:cover;filter:brightness(.6) saturate(.8);transition:filter .5s,transform .7s;">
+        <div style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:28px;background:linear-gradient(to top,rgba(17,14,11,.9),transparent 55%);">
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--cream);">Living Rooms</div>
+            <div style="font-size:9px;letter-spacing:.25em;color:var(--brass);text-transform:uppercase;margin-top:4px;">The heart of the home</div>
+          </div>
+        </div>
+      </div>
+      <div style="position:relative;overflow:hidden;aspect-ratio:3/4;" data-reveal>
+        <img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=500&q=80" alt="Bedroom" style="width:100%;height:100%;object-fit:cover;filter:brightness(.6) saturate(.8);transition:filter .5s,transform .7s;">
+        <div style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:28px;background:linear-gradient(to top,rgba(17,14,11,.9),transparent 55%);">
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--cream);">Primary Suites</div>
+            <div style="font-size:9px;letter-spacing:.25em;color:var(--brass);text-transform:uppercase;margin-top:4px;">Your private sanctuary</div>
+          </div>
+        </div>
+      </div>
+      <div style="position:relative;overflow:hidden;aspect-ratio:3/4;" data-reveal>
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=80" alt="Kitchen" style="width:100%;height:100%;object-fit:cover;filter:brightness(.6) saturate(.8);transition:filter .5s,transform .7s;">
+        <div style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:28px;background:linear-gradient(to top,rgba(17,14,11,.9),transparent 55%);">
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--cream);">Kitchens</div>
+            <div style="font-size:9px;letter-spacing:.25em;color:var(--brass);text-transform:uppercase;margin-top:4px;">Culinary & social center</div>
+          </div>
+        </div>
+      </div>
+      <div style="position:relative;overflow:hidden;aspect-ratio:3/4;" data-reveal>
+        <img src="https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=500&q=80" alt="Study" style="width:100%;height:100%;object-fit:cover;filter:brightness(.6) saturate(.8);transition:filter .5s,transform .7s;">
+        <div style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:28px;background:linear-gradient(to top,rgba(17,14,11,.9),transparent 55%);">
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--cream);">Libraries & Studies</div>
+            <div style="font-size:9px;letter-spacing:.25em;color:var(--brass);text-transform:uppercase;margin-top:4px;">Rooms of thought</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery">
+  <div style="text-align:center;max-width:700px;margin:0 auto;">
+    <span class="section-eyebrow" data-reveal>Selected Works</span>
+    <h2 class="section-title" data-reveal>Portfolio of <em>Completed Interiors</em></h2>
+  </div>
+  <div class="gallery-grid">
+    <div class="g-item wide" data-reveal><img src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=900&q=80" alt="Pacific Heights living room"></div>
+    <div class="g-item tall" data-reveal><img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=600&q=80" alt="Sea Cliff primary suite"></div>
+    <div class="g-item" data-reveal><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="Noe Valley kitchen"></div>
+    <div class="g-item" data-reveal><img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=600&q=80" alt="Russian Hill master bath"></div>
+    <div class="g-item wide" data-reveal><img src="https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=900&q=80" alt="Presidio Heights library"></div>
+    <div class="g-item" data-reveal><img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&q=80" alt="Marina District dining room"></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing">
+  <span class="section-eyebrow" data-reveal>Investment</span>
+  <h2 class="section-title light" data-reveal>Design Packages</h2>
+  <p class="body-text light" style="max-width:600px;margin:16px auto 0;" data-reveal>Design fees are separate from furniture and materials (FF&E) investment, which varies by project scope and selection. Trade pricing access typically saves 20–35% on all furnishings.</p>
+  <div class="pricing-cards">
+    <div class="p-card" data-reveal>
+      <div class="p-tier">Signature Room</div>
+      <div class="p-price" data-cms="design-price-signature">From $18K</div>
+      <div class="p-period">Design Fee + FF&E</div>
+      <ul class="p-features">
+        <li>Single room full design</li>
+        <li>Furniture & FF&E selection</li>
+        <li>Lighting design</li>
+        <li>Window treatment design</li>
+        <li>Styling & installation</li>
+      </ul>
+    </div>
+    <div class="p-card featured" data-reveal>
+      <div class="p-tier">Room by Room</div>
+      <div class="p-price" data-cms="design-price-roombyroom">From $55K</div>
+      <div class="p-period">3-Room Package + FF&E</div>
+      <ul class="p-features">
+        <li>3-room comprehensive design</li>
+        <li>Cohesive aesthetic vision</li>
+        <li>Custom millwork design</li>
+        <li>Trade pricing access</li>
+        <li>Art & object curation</li>
+        <li>Full installation management</li>
+        <li>Photography-ready styling</li>
+      </ul>
+    </div>
+    <div class="p-card" data-reveal>
+      <div class="p-tier">Whole Home</div>
+      <div class="p-price" data-cms="design-price-wholehome">Custom</div>
+      <div class="p-period">Scoped to Your Home</div>
+      <ul class="p-features">
+        <li>Complete architectural vision</li>
+        <li>Construction coordination</li>
+        <li>Bespoke furniture commissioning</li>
+        <li>Fine art acquisition</li>
+        <li>Full project management</li>
+        <li>The reveal experience</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section style="background:var(--cream-2);padding:100px 80px;text-align:center;">
+  <div style="max-width:820px;margin:0 auto;" data-reveal>
+    <span class="section-eyebrow">A Final Word</span>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(22px,3.5vw,36px);font-weight:300;font-style:italic;line-height:1.65;color:var(--text-2);">"A home is not furniture arranged in a room. It is a life made tangible. Every decision we make — every material, every proportion, every carefully chosen object — is an act of translation: your vision, realized with absolute precision. This is not what we do. It is who we are."</p>
+    <div style="margin:36px auto;display:flex;align-items:center;gap:18px;justify-content:center;max-width:280px;">
+      <div class="hdl"></div><div class="hdd"></div><div class="hdl r"></div>
+    </div>
+    <cite style="font-size:10px;letter-spacing:.38em;color:var(--brass);text-transform:uppercase;font-style:normal;">— Yohanna Mueller, Sable & Brass</cite>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-strip">
+  <span class="section-eyebrow" data-reveal>Begin Your Transformation</span>
+  <h2 class="section-title" data-reveal>Request a <em>Design Consultation</em></h2>
+  <p class="body-text" style="max-width:520px;margin:0 auto;" data-reveal>We accept a limited number of full design clients each quarter. Inquire early — most projects begin with a 4–8 week lead time.</p>
+  <div class="cta-form" data-reveal>
+    <input class="cta-input" type="text" placeholder="Your Name">
+    <input class="cta-input" type="email" placeholder="Email Address">
+    <select class="cta-input" style="min-width:220px;">
+      <option>Type of Project...</option>
+      <option>Single Signature Room</option>
+      <option>Room by Room</option>
+      <option>Whole Home</option>
+    </select>
+    <button class="btn-brass"><span>Begin Your Project</span></button>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand-name">Sable <em>&</em> Brass</div>
+      <div class="footer-brand-loc" data-cms="contact-location">Interior Design · San Francisco, California</div>
+    </div>
+    <ul class="footer-links-list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="consulting.html">Design Consulting</a></li>
+      <li><a href="staging.html">Home Staging</a></li>
+      <li><a href="rental.html">Rental Makeovers</a></li>
+    </ul>
+    <div class="footer-contact">
+      <span class="footer-contact-email" data-cms="contact-email">hello@sableandbrass.com</span>
+      <div class="footer-contact-phone" data-cms="contact-phone">+1 (415) 555-0190</div>
+    </div>
+    <div class="footer-copy">© 2025 Sable & Brass · All Rights Reserved · San Francisco, California</div>
+  </div>
+</footer>
+</div>
+
+<script>
+const cursor=document.getElementById('cursor'),cr=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`;});
+(function a(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;cr.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;requestAnimationFrame(a);})();
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>{cursor.classList.add('hovering');cr.classList.add('hovering');});el.addEventListener('mouseleave',()=>{cursor.classList.remove('hovering');cr.classList.remove('hovering');});});
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('revealed');io.unobserve(e.target);}});},{threshold:.1});
+document.querySelectorAll('[data-reveal]').forEach((el,i)=>{el.style.transitionDelay=(i%3)*.12+'s';io.observe(el);});
+</script>
+<script src="/cms-inject.js"></script>
+</body>
+</html>
