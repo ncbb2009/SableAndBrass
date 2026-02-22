@@ -59,6 +59,22 @@ const DEFAULTS = {
   }
 };
 
+/** Deep merge: defaults ← stored (preserves nested defaults for missing keys) */
+function deepMerge(defaults, stored) {
+  const result = { ...defaults };
+  for (const key of Object.keys(stored)) {
+    if (
+      result[key] && typeof result[key] === 'object' && !Array.isArray(result[key]) &&
+      stored[key] && typeof stored[key] === 'object' && !Array.isArray(stored[key])
+    ) {
+      result[key] = deepMerge(result[key], stored[key]);
+    } else {
+      result[key] = stored[key];
+    }
+  }
+  return result;
+}
+
 const CORS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
@@ -74,7 +90,8 @@ export async function onRequestOptions() {
 export async function onRequestGet({ env }) {
   try {
     const stored = await env.CMS_DATA?.get('content', { type: 'json' });
-    const data = stored ? { ...DEFAULTS, ...stored } : DEFAULTS;
+    // Deep merge: preserve default values for any missing nested keys
+    const data = stored ? deepMerge(DEFAULTS, stored) : DEFAULTS;
     return new Response(JSON.stringify(data), {
       headers: {
         ...CORS,

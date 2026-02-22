@@ -15,7 +15,10 @@
 
     const bioName = document.querySelector('[data-cms="bio-name"]');
     if (bioName && cms.bio?.firstName) {
-      bioName.innerHTML = cms.bio.firstName + '<br>' + cms.bio.lastName;
+      bioName.textContent = '';
+      bioName.appendChild(document.createTextNode(cms.bio.firstName));
+      bioName.appendChild(document.createElement('br'));
+      bioName.appendChild(document.createTextNode(cms.bio.lastName || ''));
     }
 
     const p1 = document.querySelector('[data-cms="bio-p1"]');

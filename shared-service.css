@@ -40,7 +40,7 @@ body{font-family:'Jost',sans-serif;font-weight:300;background:var(--warm-white);
 .section-title.light{color:var(--cream);}
 .body-text{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;line-height:1.85;color:var(--text-2);}
 .body-text.light{color:var(--stone);}
-.btn-brass{display:inline-flex;align-items:center;gap:12px;background:var(--brass);color:var(--sable);font-size:10px;letter-spacing:.25em;font-weight:400;text-transform:uppercase;text-decoration:none;padding:17px 46px;position:relative;overflow:hidden;transition:color .3s;}
+.btn-brass{display:inline-flex;align-items:center;gap:12px;background:var(--brass);color:var(--sable);font-size:10px;letter-spacing:.25em;font-weight:400;text-transform:uppercase;text-decoration:none;padding:17px 46px;position:relative;overflow:hidden;transition:color .3s;border:none;cursor:pointer;font-family:inherit;}
 .btn-brass::before{content:'';position:absolute;inset:0;background:var(--brass-light);transform:translateX(-101%);transition:transform .5s cubic-bezier(.77,0,.18,1);}
 .btn-brass:hover::before{transform:translateX(0);}
 .btn-brass span{position:relative;z-index:1;}
